@@ -2,7 +2,7 @@
 
 class News_model extends CI_Model {
     public function __construct() {
-        $this->load0>database();
+        $this->load->database();
     }
 
     public function get_news($slug = FALSE) {
@@ -15,5 +15,4 @@ class News_model extends CI_Model {
         return $query->row_array();
     }
 }
-
 ?>
