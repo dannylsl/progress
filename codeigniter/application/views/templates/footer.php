@@ -1,3 +1,3 @@
-<hr>
-FOOTER<br>
-TITLE="<?=$title?>"
+<div>FOOTER</div>
+</body>
+</html>
