@@ -1,3 +1,4 @@
+
 <link href="<?=base_url() ?>css/bootstrap.css" rel="stylesheet">
 <link href="<?=base_url() ?>css/bootstrap-responsive.css" rel="stylesheet">
 <link href="<?=base_url() ?>css/tablecloth.css" rel="stylesheet">
@@ -5,10 +6,15 @@
 
 <script src="<?=base_url() ?>js/jquery-1.7.2.min.js"></script>
 <script src="<?=base_url() ?>js/jquery.tablecloth.js"></script>
+<script src="<?=base_url() ?>js/Chart.js"></script>
+
+<!--[if lt IE 9]>
+<script src="<?=base_url() ?>js/excanvas.js"></script>
+<![endif]-->
 
 <script type="text/javascript" charset="utf-8">
 function toggle_display(casename) {
-    console.log($('#checkbox_'+casename).attr('checked'));
+//    console.log($('#checkbox_'+casename).attr('checked'));
     if( 'checked' == $('#checkbox_'+casename).attr('checked') ) {
         $('#cstate_table_'+casename).css('display','table');
         $('#pstate_table_'+casename).css('display','table');
@@ -69,6 +75,30 @@ table thead tr > td {
     overflow: auto;
 }
 
+.charts{
+    margin:40px 20px 10px 20px;
+    overflow: auto;
+}
+.chart {
+    width: 400px;
+    float:left;
+    margin: 10px;
+    border: solid 1px #fff;
+}
+.chart:hover {
+    border: solid 1px #ccc;
+    width: 400px;
+    float:left;
+    margin: 10px;
+}
+.chart_title {
+    text-align: center;
+    font: 18px bold;
+    color: #fff;
+    background-color: #999;
+    padding: 3px;
+}
+
 table.cstate_table{
     float: left;
     margin: 10px;
@@ -91,7 +121,6 @@ table.other_table{
     float: left;
 }
 </style>
-
 
 <?php
 //print_r($cases);
@@ -179,10 +208,8 @@ function pstate_table($casename, $pstate, $core_num) {
                     echo "<td style='background-color:#d0e9c6;'>".$ps_item['value']."</td>";
             }
         }
-
         echo "</tr>";
         echo "</tr>";
-
     }
     echo "</body></table>";
 }
@@ -255,15 +282,32 @@ echo "</table>";
 }
 
 
-function power_table($case='all', $power){
+function power_table($case='all', $power, $power_pre){
 echo "<table class='other_table table-bordered'>";
-echo "<thead><tr><td colspan='2'>POWER</td></tr></thead>";
+echo "<thead><tr><td colspan='2'>POWER</td>";
+echo "<td colspan='2'>TREND</td></tr></thead>";
 echo "<tbody>";
 foreach($power as $p_item) {
     if($case == 'all'){
         echo "<tr id='power_table_tr_".$p_item['case_name']."' >";
         echo "<td>".$p_item['case_name']."</td>";
         echo "<td>".$p_item['value']."</td>";
+        if(isset($power_pre[$p_item['case_name']])) {
+            $diff = $p_item['value'] - $power_pre[$p_item['case_name']];
+            if($diff > 0) {
+                echo "<td><i class='icon-arrow-up'></i></td>";
+                echo "<td>$diff mw</td>";
+            }else if($diff < 0) {
+                echo "<td><i class='icon-arrow-down'></i></td>";
+                echo "<td>". ($power_pre[$p_item['case_name']] - $p_item['value'] )." mw</td>";
+            }else {
+                echo "<td>-</td>";
+                echo "<td> 0 mw </td>";
+            }
+        }else{
+                echo "<td>-</td>";
+                echo "<td> 0 mw </td>";
+        }
         echo "</tr>";
     }else if($p_item['case_name'] == $case) {
         echo "<tr id='power_table_tr_".$p_item['case_name']."' >";
@@ -334,9 +378,67 @@ ncstate_table('record_social_1080p', $ncstate);
 <?php
 wakeups_table('all',$wakeups);
 fps_table('all',$fps);
-power_table('all',$power);
+
+$p_pre_arr =array();
+foreach($power_pre as $p_pre) {
+    $p_pre_arr[$p_pre['case_name']] = $p_pre['value'];
+}
+//print_r($p_pre_arr);
+power_table('all',$power, $p_pre_arr);
 ?>
 </div>
+
 <center>
 <input type='button' class='btn btn-large btn-success' onclick="location.href='<?=base_url() ?>index.php/socdata/power/<?=$platform.'/'.$week.'/'.$device?>'" value='POWER EDIT'/>
 </center>
+
+<hr>
+<h2>POWER TRENDS</h2>
+
+<div class='charts'>
+
+<?php
+foreach($cases as $case) :
+?>
+<div class='chart'>
+<canvas id='<?=$case['case_name']?>_canvas' width='400' height='200'></canvas>
+<div class='chart_title'><?=$case['case_name']?></div>
+</div>
+
+
+<script>
+function <?=$case['case_name']?>_draw(){
+var data = {
+labels :[<?=$label_version?>],
+
+datasets : [
+{
+fillColor: 'rgba(115,187,205, 0.5)',
+strokeColor: 'rgba(115,187,205, 1)',
+ponitColor: 'rgba(255,98,98, 1)',
+pointStrokeColor: '#fff',
+data: [<?=$power_arr[$case['case_name']];?> ]
+}
+]
+}
+if(window.G_vmlCanvasManager && window.attachEvent && !window.opera) {
+    var canvas = window.G_vmlCanvasManager.initElement(document.getElementById('<?=$case['case_name']?>_canvas'));
+    var ctx = canvas.getContext('2d');
+}else{
+    var ctx = document.getElementById('<?=$case['case_name']?>_canvas').getContext('2d');
+}
+new Chart(ctx).Line(data);
+}
+</script>
+<?php
+ endforeach;
+?>
+</div> <!-- charts end -->
+</div>
+<script>
+window.onload = function() {
+<?php foreach($cases as $case) : ?>
+<?=$case['case_name']?>_draw();
+<?php endforeach; ?>
+}
+</script>
