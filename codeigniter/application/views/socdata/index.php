@@ -1,6 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <head>
 <title>SOC WATCH DATA</title>
+<!--
+<script src="<?=base_url() ?>js/Chart.js"></script>
+-->
 <script src="<?=base_url() ?>js/jquery-1.7.2.min.js"></script>
 <script>
 function platform_change() {
@@ -25,8 +28,9 @@ function platform_change() {
 function device_change() {
     var plat = $('#platform').val();
     var dev = $('#device').val();
-    console.log( "<?=base_url() ?>index.php/socdata/get_version/"+plat+'/'+dev);
+    //console.log( "<?=base_url() ?>index.php/socdata/get_version/"+plat+'/'+dev);
     var obj = $.ajax({url: "<?=base_url() ?>index.php/socdata/get_version/"+plat+'/'+dev , async:false});
+    //alert(obj.responseText);
     $('#version').attr('disabled', false);
     $('#version').empty();
     $('#version').append(obj.responseText);
@@ -93,17 +97,11 @@ div.submit {
 <div class='container'>
 <div class='box'>
 <div class='title'>SOCDATA</div>
-<!--
-<form action='<?=base_url() ?>index.php/socdata/show/' method='post'>
--->
 <?php
 echo form_open('socdata/show');
 ?>
 <div class='opt'>
-<?php
-//print_r($platform);
-//print_r($version);
-?>
+
 <label for='platform'>PLATFORM:</label>
 <select id='platform' name='platform'>
     <option value='0'>Choose</option>
@@ -138,9 +136,9 @@ echo "<option value='".$v['week']."'>".$v['week']."</option>";
 
 
 <div class='submit'><input type='submit' value='Search'></div>
-</div>
+</div> <!-- div opt end -->
 </form>
-</div>
-</div>
+</div> <!-- div box end -->
+</div> <!-- div container -->
 </body>
 </html>

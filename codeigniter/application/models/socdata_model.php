@@ -59,6 +59,11 @@ class Socdata_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_case_power($platform, $device, $casename) {
+        $this->db->order_by('datetime', 'asc');
+        $query = $this->db->get_where('soc_data', array('platform'=>$platform, 'device'=>$device, 'case_name'=>$casename, 'category'=>'power'));
+        return $query->result_array();
+    }
 
     public function get_ncstate($platform ="MRFLD", $week, $device) {
         $query = $this->db->get_where('soc_data', array('platform'=>$platform, 'week'=>$week, 'device'=>$device, 'category'=>'ncstate'));
@@ -78,5 +83,18 @@ class Socdata_model extends CI_Model {
         $this->db->distinct();
         $query = $this->db->get_where('soc_data', array('platform'=>$platform, 'week'=>$week, 'device'=>$device));
         return $query->result_array();
+    }
+
+    public function get_target_cases() {
+        $query = $this->db->get_where('soc_settings', array('item' => 'case'));
+        $target_cases = array();
+        foreach($query->result_array() as $result) {
+            array_push($target_cases,$result['value']);
+        }
+        return $target_cases;
+    }
+
+    public function save_as_target() {
+
     }
 }
