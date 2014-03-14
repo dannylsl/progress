@@ -49,6 +49,8 @@ class Socdata extends CI_Controller {
         $data['platform'] = $platform;
         $data['week'] = $week;
 
+        $data['cases_targets'] = $this->socdata_model->get_cases_targets($platform, $device);
+
         $version = $this->socdata_model->get_version($platform, $device);
         $last_v = array_pop($version);
         $data['label_version'] = "";
@@ -85,6 +87,7 @@ class Socdata extends CI_Controller {
 
     }
 
+
     public function power($platform, $week, $device) {
         $data['device'] = $device;
         $data['platform'] = $platform;
@@ -95,6 +98,7 @@ class Socdata extends CI_Controller {
         $this->load->helper('url');
         $this->load->view('socdata/power', $data);
     }
+
 
     public function updata_power($platform, $device, $week, $case_name, $value) {
         $sql = "SELECT * FROM `soc_data` WHERE `platform` = '$platform' AND `device` = '$device' AND `week`= '$week' AND `case_name` = '$case_name' AND `category`='power'";
@@ -113,7 +117,6 @@ class Socdata extends CI_Controller {
 
             $query =  $this->db->query($sql);
 
-            $this->db->affected_rows();
             if($this->db->affected_rows() <= 0) {
                 echo "<div id='ret_msg' align='center' style='display:none;font-size:24px;font-weight:bold;color:red;'>INSERT WITH FAILURE</div>";
             }else {
@@ -134,11 +137,33 @@ class Socdata extends CI_Controller {
     }
 
 
-    public function target() {
-        $data['target_cases'] = $this->socdata_model->get_target_cases();
+    public function target($platform, $device) {
+        $data['target_cases'] = $this->socdata_model->get_target_cases($platform, $device);
+        $data['cases_targets'] = $this->socdata_model->get_cases_targets($platform, $device);
+        //print_r($data['cases_targets']);
+
         //print_r($data['target_cases']);
+        $data['platform'] = $platform;
+        $data['device'] = $device;
 
         $this->load->helper('url');
         $this->load->view('socdata/target', $data);
     }
+
+
+    public function target_save($platform, $device, $case_name, $value) {
+        $sql = "INSERT INTO `soc_target` VALUES(NULL, '$platform', '$device', '$case_name', '$value', CURRENT_TIMESTAMP,'')";
+        $query = $this->db->query($sql);
+
+        if($this->db->affected_rows() <= 0) {
+            echo "<div id='ret_msg' align='center' style='display:none;font-size:24px;font-weight:bold;color:red;'>SAVE AS TARGET WITH FAILURE</div>";
+        }else {
+            echo "<div id='ret_msg' align='center' style='display:none;font-size:24px;font-weight:bold;color:green;'>SAVE AS TARGET SUCCESSFULLY</div>";
+        }
+    }
+
+    public function settings() {
+    
+    }
+
 }

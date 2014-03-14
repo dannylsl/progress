@@ -9,8 +9,25 @@
 <head>
 <link href="<?=base_url() ?>css/bootstrap.min.css" rel="stylesheet">
 <script src="<?=base_url() ?>js/jquery-1.7.2.min.js"></script>
+<script>
+function save_target(casename) {
+    var platform = $('#platform').val();
+    var device = $('#device').val();
+    var value =  $('#target_'+casename).val();
 
-<title>TARGET</title>
+    var obj = $.ajax({
+        url:"<?=base_url() ?>index.php/socdata/target_save/"+platform+"/"+device+"/"+casename+"/"+value,
+        async:false
+    });
+    $('#container').after(obj.responseText);
+    $('#ret_msg').fadeIn(2000);
+    $('#ret_msg').fadeOut(1000,function(){
+        $('#ret_msg').remove();
+    });
+}
+</script>
+
+<title>[TARGET] <?=$platform.'-'.$device ?> </title>
 <style>
 .item-name {
 font-size: 18px;
@@ -26,19 +43,21 @@ float: left;
 
 <body>
 
-<div class="container" >
+<div class="container" id='container'>
 <div style='height:30px;'></div>
-<h1>TARGETS</h1>
+<h1>[TARGETS] <?=$platform.'-'.$device ?></h1>
 <hr>
+<input type='hidden' value='<?=$platform?>' id='platform' />
+<input type='hidden' value='<?=$device?>' id='device' />
 <div>
 <?php
 foreach($target_cases as $tcase) :
 ?>
 <label for='target_<?=$tcase?>'><span class='item-name'><?=$tcase?></span>
 <div class='input-append'>
-    <input type='text' id='target_<?=$tcase?>' />
+    <input type='text' id='target_<?=$tcase?>' value='<?=$cases_targets[$tcase]['power']?>' />
     <span class='add-on'>mW</span>
-    <input type='button' class='btn btn-success' style='margin-left: 10px;' value='SAVE AS NEW TARGET'/>
+    <input type='button' class='btn btn-success' style='margin-left: 10px;' onclick="save_target('<?=$tcase?>')"  value='SAVE AS NEW TARGET'/>
 </div>
 </label>
 <? endforeach;?>

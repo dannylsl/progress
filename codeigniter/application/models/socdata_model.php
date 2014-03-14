@@ -85,8 +85,8 @@ class Socdata_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function get_target_cases() {
-        $query = $this->db->get_where('soc_settings', array('item' => 'case'));
+    public function get_target_cases($platform, $device) {
+        $query = $this->db->get_where('soc_settings', array('item' => 'case', 'platform'=>$platform, 'device' => $device));
         $target_cases = array();
         foreach($query->result_array() as $result) {
             array_push($target_cases,$result['value']);
@@ -94,7 +94,17 @@ class Socdata_model extends CI_Model {
         return $target_cases;
     }
 
-    public function save_as_target() {
+    public function get_cases_targets($platform, $device) {
+        $target_cases = $this->get_target_cases($platform, $device);
+        $cases_targets = array();
 
+        foreach($target_cases as $tcase) {
+            $this->db->order_by('datetime','desc');
+            $this->db->limit(1);
+            $query = $this->db->get_where('soc_target', array('platform' => $platform,'device' => $device, 'case_name'=>$tcase));
+            $cases_targets[$tcase] = $query->row_array();
+        }
+        return $cases_targets;
     }
+
 }

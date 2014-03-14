@@ -282,10 +282,11 @@ echo "</table>";
 }
 
 
-function power_table($case='all', $power, $power_pre){
+function power_table($case='all', $power, $power_pre, $targets){
 echo "<table class='other_table table-bordered'>";
 echo "<thead><tr><td colspan='2'>POWER</td>";
-echo "<td colspan='2'>TREND</td></tr></thead>";
+echo "<td colspan='2'>TREND</td>";
+echo "<td>TARGET</td><td>PERCENT</td><td>GAP</td></tr></thead>";
 echo "<tbody>";
 foreach($power as $p_item) {
     if($case == 'all'){
@@ -308,6 +309,27 @@ foreach($power as $p_item) {
                 echo "<td>-</td>";
                 echo "<td> 0 mw </td>";
         }
+        $target_power = $targets[$p_item['case_name']]['power'];
+        echo "<td>$target_power</td>";
+
+        if($p_item['value'] == 0){
+            $target_percent = 'NULL';//$target_power/float($p_item['value']);
+        }
+
+        $target_percent = round(($target_power/($p_item['value']))*100, 2);
+        if($target_percent <= 70) {
+            echo "<td style='background-color:#FF5E5E;color:#;'>$target_percent%</td>";
+        }else if($target_percent > 70 && $target_percent < 80) {
+            echo "<td style='background-color:#FFC480;'>$target_percent%</td>";
+        }else if($target_percent >= 80 && $target_percent < 90) {
+            echo "<td style='background-color:#FCFF90;'>$target_percent%</td>";
+        }else if($target_percent >= 90) {
+            echo "<td style='background-color:#B0FFB0;'>$target_percent%</td>";
+        }
+
+        $target_gap = ($p_item['value']) - $target_power;
+        echo "<td>$target_gap</td>";
+
         echo "</tr>";
     }else if($p_item['case_name'] == $case) {
         echo "<tr id='power_table_tr_".$p_item['case_name']."' >";
@@ -333,42 +355,48 @@ echo "<label class='checkbox inline'><input id='checkbox_".$case['case_name']."'
 <h2>CSTATE</h2>
 <div class='cstate'>
 <?php
-cstate_table('idle', $cstate, $core_num);
-cstate_table('video_playback_1080p', $cstate, $core_num);
-cstate_table('video_playback_1080p_frc', $cstate, $core_num);
-cstate_table('video_playback_1080p_60fps', $cstate, $core_num);
-cstate_table('video_playback_720p_60fps', $cstate, $core_num);
-cstate_table('stream_chrome', $cstate, $core_num);
-cstate_table('stream_stock', $cstate, $core_num);
-cstate_table('record_social_1080p', $cstate, $core_num);
+foreach($cases as $case) {
+    cstate_table($case['case_name'], $cstate, $core_num);
+}
+//cstate_table('video_playback_1080p', $cstate, $core_num);
+//cstate_table('video_playback_1080p_frc', $cstate, $core_num);
+//cstate_table('video_playback_1080p_60fps', $cstate, $core_num);
+//cstate_table('video_playback_720p_60fps', $cstate, $core_num);
+//cstate_table('stream_chrome', $cstate, $core_num);
+//cstate_table('stream_stock', $cstate, $core_num);
+//cstate_table('record_social_1080p', $cstate, $core_num);
 ?>
 </div>
 
 <h2>PSTATE</h2>
 <div class='pstate'>
 <?php
-pstate_table('idle', $pstate, $core_num);
-pstate_table('video_playback_1080p', $pstate, $core_num);
-pstate_table('video_playback_1080p_frc', $pstate, $core_num);
-pstate_table('video_playback_1080p_60fps', $pstate, $core_num);
-pstate_table('video_playback_720p_60fps', $pstate, $core_num);
-pstate_table('stream_chrome', $pstate, $core_num);
-pstate_table('stream_stock', $pstate, $core_num);
-pstate_table('record_social_1080p', $pstate, $core_num);
+foreach($cases as $case) {
+    pstate_table($case['case_name'], $pstate, $core_num);
+}
+//pstate_table('video_playback_1080p', $pstate, $core_num);
+//pstate_table('video_playback_1080p_frc', $pstate, $core_num);
+//pstate_table('video_playback_1080p_60fps', $pstate, $core_num);
+//pstate_table('video_playback_720p_60fps', $pstate, $core_num);
+//pstate_table('stream_chrome', $pstate, $core_num);
+//pstate_table('stream_stock', $pstate, $core_num);
+//pstate_table('record_social_1080p', $pstate, $core_num);
 ?>
 </div>
 
 <h2>NC-STATE</h2>
 <div class='ncstate'>
 <?php
-ncstate_table('idle', $ncstate);
-ncstate_table('video_playback_1080p', $ncstate);
-ncstate_table('video_playback_1080p_frc', $ncstate);
-ncstate_table('video_playback_1080p_60fps', $ncstate);
-ncstate_table('video_playback_720p_60fps', $ncstate);
-ncstate_table('stream_chrome', $ncstate);
-ncstate_table('stream_stock', $ncstate);
-ncstate_table('record_social_1080p', $ncstate);
+foreach($cases as $case) {
+ncstate_table($case['case_name'], $ncstate);
+}
+//ncstate_table('video_playback_1080p', $ncstate);
+//ncstate_table('video_playback_1080p_frc', $ncstate);
+//ncstate_table('video_playback_1080p_60fps', $ncstate);
+//ncstate_table('video_playback_720p_60fps', $ncstate);
+//ncstate_table('stream_chrome', $ncstate);
+//ncstate_table('stream_stock', $ncstate);
+//ncstate_table('record_social_1080p', $ncstate);
 ?>
 </div>
 
@@ -384,12 +412,13 @@ foreach($power_pre as $p_pre) {
     $p_pre_arr[$p_pre['case_name']] = $p_pre['value'];
 }
 //print_r($p_pre_arr);
-power_table('all',$power, $p_pre_arr);
+power_table('all',$power, $p_pre_arr, $cases_targets);
 ?>
 </div>
 
 <center>
 <input type='button' class='btn btn-large btn-success' onclick="location.href='<?=base_url() ?>index.php/socdata/power/<?=$platform.'/'.$week.'/'.$device?>'" value='POWER EDIT'/>
+<input type='button' class='btn btn-large btn-warning' style='margin-left: 50px;' onclick="location.href='<?=base_url() ?>index.php/socdata/target/<?=$platform.'/'.$device?>'" value='TARGET EDIT'/>
 </center>
 
 <hr>
