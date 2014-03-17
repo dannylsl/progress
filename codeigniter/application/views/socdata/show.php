@@ -295,12 +295,13 @@ foreach($power as $p_item) {
         echo "<td>".$p_item['value']."</td>";
         if(isset($power_pre[$p_item['case_name']])) {
             $diff = $p_item['value'] - $power_pre[$p_item['case_name']];
+            $diff = round($diff, 2);
             if($diff > 0) {
                 echo "<td><i class='icon-arrow-up'></i></td>";
                 echo "<td>$diff mw</td>";
             }else if($diff < 0) {
                 echo "<td><i class='icon-arrow-down'></i></td>";
-                echo "<td>". ($power_pre[$p_item['case_name']] - $p_item['value'] )." mw</td>";
+                echo "<td>". round(($power_pre[$p_item['case_name']] - $p_item['value']), 2)." mw</td>";
             }else {
                 echo "<td>-</td>";
                 echo "<td> 0 mw </td>";
