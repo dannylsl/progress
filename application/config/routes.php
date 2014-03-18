@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "socdata/index";
+$route['default_controller'] = "progress/index";
 $route['404_override'] = '';
 
 

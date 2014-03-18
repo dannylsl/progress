@@ -1,4 +1,0 @@
-<hr>
-FOOTER
-</body>
-</html>
