@@ -8,18 +8,23 @@
 <script type='text/javascript'>
 function show_add_dialog() {
 <?php
-$str = file_get_contents(base_url().'application/views/progress/addtodo.html');
+$str = file_get_contents(base_url().'application/views/progress/addtodo.php');
 $str = str_replace(PHP_EOL, '', $str);
 ?>
-    var dialog="<div id='mask' class='mask'><div class='dialog'><div class='dialog-header'><div class='dialog-title'>Adding TODO </div><div class='dialog-close'><img src='images/remove.png' onClick='remove_add_dialog()'/></div></div> <!-- dialog-header end --><div class='dialog-content' id='dialog-content'></div></div></div>";
-    $('#endle').append(dialog);
+    var mask="<div id='mask' class='mask'></div>";
+    var dialog = "<div class='dialog' id='dialog' ><div class='dialog-header'><div class='dialog-title'>Adding TODO </div><div class='dialog-close'><img src='images/remove.png' onClick='remove_add_dialog()'/></div></div> <!-- dialog-header end --><div class='dialog-content' id='dialog-content'></div></div>";
+    $('#endle').after(mask);
+    $('#mask').after(dialog);
     $('#dialog-content').html("<?=$str;?>");
     $('#mask').fadeIn();
 
 }
 function remove_add_dialog() {
-    $('#mask').fadeOut();
-    $('#mask').remove();
+    $('#dialog').fadeOut(1000);
+    $('#mask').fadeOut(2000, function(){
+        $('#dialog').remove();
+        $('#mask').remove();
+    });
 }
 </script>
 <title>PROGRESS</title>
