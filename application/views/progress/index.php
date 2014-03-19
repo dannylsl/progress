@@ -55,7 +55,7 @@ function remove_add_dialog() {
 
     <div class='list'>
     <? foreach($events as $e) : ?>
-      <div class='item'>
+      <div class='item' onclick="javascript:location.href='<?=base_url()?>index.php/progress/detail/<?=$e['id']?>'">
         <div class='state'>
           <img src='<?= base_url() ?>images/arrow_right_black.png' />
         </div>
