@@ -1,11 +1,11 @@
-<form action='' method='post'>
-<input type='text' class='dialog-input' placeholder='TITLE' />
-<select class='dialog-select'>
-  <option>CATEGORY</option>
-  <option>WEEKLY WORK</option>
-  <option>MISC</option>
-  <option>TODO IN THE FURTURE</option>
+<?= form_open('progress/save_event'); ?>
+<input type='text' class='dialog-input' name='title' placeholder='TITLE' />
+<select class='dialog-select' name='category'>
+  <option value='CATEGORY'>CATEGORY</option>
+  <option value='WEEKLY WORK'>WEEKLY WORK</option>
+  <option value='MISC'>MISC</option>
+  <option value='TODO IN THE FUTURE'>TODO IN THE FURTURE</option>
 </select>
-<textarea class='dialog-textarea' placeholder='CONTENT...'></textarea>
+<textarea class='dialog-textarea' name='description' placeholder='CONTENT...'></textarea>
 <button type='submit'>Submit</button>
 </form>

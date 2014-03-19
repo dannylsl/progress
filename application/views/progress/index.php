@@ -2,14 +2,14 @@
 <html>
 <head>
 <meta charset='utf-8'>
-<link rel='stylesheet' type='text/css' href='css/progress.css' />
-
-<script type='text/javascript' src='js/jquery-1.8.0.min.js'></script>
+<link rel='stylesheet' type='text/css' href='<?= base_url()?>css/progress.css' />
+<script type='text/javascript' src='<?= base_url()?>js/jquery-1.8.0.min.js'></script>
 <script type='text/javascript'>
 function show_add_dialog() {
 <?php
-$str = file_get_contents(base_url().'application/views/progress/addtodo.php');
+$str = file_get_contents(base_url().'index.php/progress/addtodo');
 $str = str_replace(PHP_EOL, '', $str);
+$str = str_replace("\"", "'", $str);
 ?>
     var mask="<div id='mask' class='mask'></div>";
     var dialog = "<div class='dialog' id='dialog' ><div class='dialog-header'><div class='dialog-title'>Adding TODO </div><div class='dialog-close'><img src='images/remove.png' onClick='remove_add_dialog()'/></div></div> <!-- dialog-header end --><div class='dialog-content' id='dialog-content'></div></div>";
@@ -41,22 +41,29 @@ function remove_add_dialog() {
   </div>
   <div class='search'>
     <input type='text' class='sbox' placeholder='TYPE TO SEARCH' />
-    <img src='images/search.png' class='img_search '>
+    <img src='<?= base_url() ?>images/search.png' class='img_search '>
   </div>
 </div> <!-- header end -->
+
+
 <div class='container'>
   <div class='left'>
     <div class='operation'>
       <button onclick='show_add_dialog()'>ADD TODO</button>
     </div>
+
     <div class='list'>
+    <? foreach($events as $e) : ?>
       <div class='item'>
         <div class='state'>
-          <img src='images/circle_ok.png' />
+          <img src='<?= base_url() ?>images/arrow_right_black.png' />
         </div>
-        <div class='item-content'>hello...lalalall</div>
-        <div class='item-date'>2014-02-11</div>
+        <div class='item-content'><?=$e['title'];?></div>
+        <div class='item-date'><?=$e['start_date']?></div>
       </div>
+    <? endforeach; ?>
+
+<!--
       <div class='item'>
         <div class='state'>
           <img src='images/checked.png' />
@@ -106,6 +113,7 @@ function remove_add_dialog() {
         <div class='item-content'>hello...lalalall</div>
         <div class='item-date'>2014-02-11</div>
       </div>
+-->
     </div>
   </div> <!-- left end -->
 
