@@ -6,6 +6,7 @@
   <option value='MISC'>MISC</option>
   <option value='TODO IN THE FUTURE'>TODO IN THE FURTURE</option>
 </select>
-<textarea class='dialog-textarea' name='description' placeholder='CONTENT...'></textarea>
+<div class='sp15'></div>
+<textarea class='dialog-textarea' id='jwysiwyg' name='description' placeholder='CONTENT...'></textarea>
 <button type='submit'>Submit</button>
 </form>

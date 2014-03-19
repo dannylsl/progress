@@ -51,9 +51,11 @@ class Progress_model extends CI_Model {
         $sql = "INSERT INTO `prog_comments` VALUES(NULL, '$eId', '$u1id', '$u1name', '$comment', '$status', '$date')";
 
         $query =  $this->db->query($sql);
+        echo $this->db->affected_rows() ;
         if($this->db->affected_rows() <= 0) {
             return 0; // failed
         }else {
+            echo "1";
             return 1; // success
         }
     }

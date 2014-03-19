@@ -1,29 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset='utf-8'>
-<link rel='stylesheet' type='text/css' href='<?= base_url()?>css/progress.css' />
-<link rel='stylesheet' type='text/css' href='<?= base_url()?>jwysiwyg/jquery.wysiwyg.css' />
-<script type='text/javascript' src='<?= base_url()?>js/jquery-1.8.0.min.js'></script>
-<script type='text/javascript' src='<?= base_url()?>jwysiwyg/jquery.wysiwyg.js'></script>
-<title>PROGRESS</title>
-</head>
-<body>
-<div id='header' class='header'>
-  <div class='logo'>PROGRESS</div>
-  <div class='nav_list'>
-    <a href='#'>TODO</a>
-    <a href='#'>GOING</a>
-    <a href='#'>DONE</a>
-    <a href='#'>REPORT</a>
-    <a href='#'>SETTING</a>
-  </div>
-  <div class='search'>
-    <input type='text' class='sbox' placeholder='TYPE TO SEARCH' />
-    <img src='<?= base_url();?>images/search.png' class='img_search '>
-  </div>
-</div> <!-- header end -->
-
 <div class='container'>
 <div style='height:35px;'>
 <div class='title-state'><?= $event[0]['title'] ?></div>
