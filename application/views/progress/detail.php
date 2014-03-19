@@ -3,41 +3,27 @@
 <head>
 <meta charset='utf-8'>
 <link rel='stylesheet' type='text/css' href='<?= base_url()?>css/progress.css' />
+<link rel='stylesheet' type='text/css' href='<?= base_url()?>jwysiwyg/jquery.wysiwyg.css' />
 <script type='text/javascript' src='<?= base_url()?>js/jquery-1.8.0.min.js'></script>
-<script type='text/javascript'>
-function show_add_dialog() {
-<?php 
-$str = file_get_contents('addtodo.html');
-$str = str_replace(PHP_EOL, '', $str);
-?>
-var dialog="<div id='mask' class='mask'><div class='dialog'><div class='dialog-header'><div class='dialog-title'>Adding TODO </div><div class='dialog-close'><img src='".base_url()."images/remove.png' onClick='remove_add_dialog()'/></div></div> <!-- dialog-header end --><div class='dialog-content' id='dialog-content'></div></div></div>";
-$('#endle').append(dialog);
-$('#dialog-content').html("<?=$str;?>");
-$('#mask').fadeIn();
-
-}
-function remove_add_dialog() {
-    $('#mask').fadeOut();
-    $('#mask').remove();
-}
-</script>
+<script type='text/javascript' src='<?= base_url()?>jwysiwyg/jquery.wysiwyg.js'></script>
 <title>PROGRESS</title>
 </head>
 <body>
 <div id='header' class='header'>
   <div class='logo'>PROGRESS</div>
   <div class='nav_list'>
-    <a href='#'>TODO</a> 
-    <a href='#'>GOING</a> 
-    <a href='#'>DONE</a> 
-    <a href='#'>REPORT</a> 
-    <a href='#'>SETTING</a> 
+    <a href='#'>TODO</a>
+    <a href='#'>GOING</a>
+    <a href='#'>DONE</a>
+    <a href='#'>REPORT</a>
+    <a href='#'>SETTING</a>
   </div>
   <div class='search'>
     <input type='text' class='sbox' placeholder='TYPE TO SEARCH' />
     <img src='<?= base_url();?>images/search.png' class='img_search '>
   </div>
 </div> <!-- header end -->
+
 <div class='container'>
 <div style='height:35px;'>
 <div class='title-state'><?= $event[0]['title'] ?></div>
@@ -60,6 +46,19 @@ function remove_add_dialog() {
 </div>
 <div class="sp20"></div>
 
+<? foreach($comments as $c) : ?>
+<div class='comment'>
+    <div class='comment-header'>
+        <div class='comment-header-left'><?=$c['u1name']?></div>
+        <div class='comment-header-right'><?=$c['date']?></div>
+    </div>
+    <div class='comment-body'>
+        <?=$c['comment'];?>
+    </div>
+</div>
+<? endforeach; ?>
+
+<!--
 <div class='comment'>
     <div class='comment-header'>
         <div class='comment-header-left'>Danny Lee </div>
@@ -92,16 +91,25 @@ function remove_add_dialog() {
         helloworld helloworld
     </div>
 </div>
+-->
 
-<div class='comment'>
-    <div class='comment-header'>
-        <div class='comment-header-left'>Danny Lee </div>
-        <div class='comment-header-right'>2014-03-18</div>
-    </div>
-    <div class='comment-body'>
-        helloworld helloworld helloworld helloworld<br>
-        helloworld helloworld
-    </div>
+<div class="sp20"></div>
+
+<div class='comment-dialog'>
+<?= form_open('progress/add_comment'); ?>
+    <input type='hidden' value='<?=$event[0]['id']?>' name='eId'/>
+    <textarea name='comment' id='jwysiwyg' class='comment-textarea'></textarea>
+    <div class="sp20"></div>
+    <div align='right'><input type='submit' class='input-button' value='ADD COMMENT'></div>
+</form>
+</div>
+<script>
+$('#jwysiwyg').wysiwyg();
+</script>
+
+<div class='event-state'>
+<button>SET FINISHED</button>
+<button>DELETE</button>
 </div>
 
 

@@ -40,4 +40,29 @@ class Progress_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function add_comment() {
+        $eId = $this->input->post('eId');
+        $u1id = '1';
+        $u1name = 'Danny Lee';
+        $comment = $this->input->post('comment');
+        $status = 1;
+        $date = date('Y-m-d H:i:s',time());
+
+        $sql = "INSERT INTO `prog_comments` VALUES(NULL, '$eId', '$u1id', '$u1name', '$comment', '$status', '$date')";
+
+        $query =  $this->db->query($sql);
+        if($this->db->affected_rows() <= 0) {
+            return 0; // failed
+        }else {
+            return 1; // success
+        }
+    }
+
+    public function get_comments($eId) {
+        $this->db->order_by('date', 'ASC');
+        $query = $this->db->get_where('prog_comments', array('eId' => $eId));
+        return $query->result_array();
+    }
+
+
 }

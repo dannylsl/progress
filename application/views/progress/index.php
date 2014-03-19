@@ -12,13 +12,14 @@ $str = str_replace(PHP_EOL, '', $str);
 $str = str_replace("\"", "'", $str);
 ?>
     var mask="<div id='mask' class='mask'></div>";
-    var dialog = "<div class='dialog' id='dialog' ><div class='dialog-header'><div class='dialog-title'>Adding TODO </div><div class='dialog-close'><img src='images/remove.png' onClick='remove_add_dialog()'/></div></div> <!-- dialog-header end --><div class='dialog-content' id='dialog-content'></div></div>";
+    var dialog = "<div class='dialog' id='dialog' ><div class='dialog-header'><div class='dialog-title'>Adding TODO </div><div class='dialog-close'><img src='<?=base_url()?>images/remove.png' onClick='remove_add_dialog()'/></div></div> <!-- dialog-header end --><div class='dialog-content' id='dialog-content'></div></div>";
     $('#endle').after(mask);
     $('#mask').after(dialog);
     $('#dialog-content').html("<?=$str;?>");
     $('#mask').fadeIn();
 
 }
+
 function remove_add_dialog() {
     $('#dialog').fadeOut(1000);
     $('#mask').fadeOut(2000, function(){
