@@ -16,7 +16,7 @@
     <a href='#'>GOING</a>
     <a href='#'>DONE</a>
     <a href='#'>REPORT</a>
-    <a href='#'>SETTING</a>
+    <a href='<?= base_url()?>index.php/progress/settings'>SETTING</a>
   </div>
   <div class='search'>
     <input type='text' class='sbox' placeholder='TYPE TO SEARCH' />
