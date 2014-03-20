@@ -10,34 +10,25 @@
     </tr>
     </thead>
     <tbody>
+    <? $i = 1; ?>
+    <? foreach($categorys as $cate) :?>
     <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
+        <td><?=$i++?></td>
+        <td><?=$cate['value']?></td>
+        <td><img src='<?=base_url()?>images/remove.png' onclick="javascript:location.href='<?=base_url();?>index.php/progress/remove_category/<?=$cate['id']?>'" /></td>
     </tr>
-
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
+    <? endforeach; ?>
     </tbody>
 </table>
 <hr width='40%'>
 
 <div class='add_category'>
-    <input type='text' class='input-text' name='item_name'/>
+
+<?= form_open('progress/add_category'); ?>
+    <input type='text' class='input-text' name='item_name' placeholder='ITEM NAME'/>
     <input type='submit' class='input-button' value='ADD' />
+</form>
+
 </div>
 
 </div>

@@ -76,6 +76,7 @@ button:hover {
 /* FOR INDEX */
 .header {
     width: 100%;
+    min-width: 1280px;
     height: 50px;
     border-bottom: solid #000 1px;
     font-size: 24px;
@@ -95,7 +96,8 @@ button:hover {
 
 .nav_list {
     width: 50%;
-    position: relative; 
+    min-width:630px;
+    position: relative;
     float: left;
     height: 50px;
 }
@@ -117,7 +119,7 @@ button:hover {
 }
 
 .search {
-    width: 30%;
+    min-width: 260px;
     height: 50px;
     line-height: 50px;
     float: left;

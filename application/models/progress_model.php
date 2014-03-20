@@ -51,11 +51,9 @@ class Progress_model extends CI_Model {
         $sql = "INSERT INTO `prog_comments` VALUES(NULL, '$eId', '$u1id', '$u1name', '$comment', '$status', '$date')";
 
         $query =  $this->db->query($sql);
-        echo $this->db->affected_rows() ;
         if($this->db->affected_rows() <= 0) {
             return 0; // failed
         }else {
-            echo "1";
             return 1; // success
         }
     }
@@ -66,5 +64,39 @@ class Progress_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_categorys() {
+        $this->db->order_by('datetime', 'ASC');
+        $query = $this->db->get_where('prog_settings',array('item'=>'category'));
+        return $query->result_array();
+    }
+
+    public function add_category($item_value) {
+        $date = date('Y-m-d H:i:s',time());
+        $item = "category";
+        $note = '';
+
+        $data = array('item'=>$item, 'value'=>$item_value, 'datetime'=> $date, 'note'=>$note);
+
+        $this->db->insert('prog_settings', $data);
+
+        if($this->db->affected_rows() <= 0) {
+            return 0; // failed
+        }else {
+            return 1; // success
+        }
+
+    }
+
+    public function remove_category($id) {
+
+        $this->db->delete('prog_settings', array('id'=>$id));
+
+        if($this->db->affected_rows() <= 0) {
+            return 0; // failed
+        }else {
+            return 1; // success
+        }
+
+    }
 
 }
