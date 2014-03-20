@@ -12,9 +12,8 @@
 <div id='header' class='header'>
   <div class='logo'><a href='<?= base_url()?>'>PROGRESS</a></div>
   <div class='nav_list'>
-    <a href='#'>TODO</a>
-    <a href='#'>GOING</a>
-    <a href='#'>DONE</a>
+    <a href='<?= base_url() ?>index.php/progress/'>TODO</a>
+    <a href='<?= base_url() ?>index.php/progress/done'>DONE</a>
     <a href='#'>REPORT</a>
     <a href='<?= base_url()?>index.php/progress/settings'>SETTING</a>
   </div>

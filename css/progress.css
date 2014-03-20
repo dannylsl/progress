@@ -269,7 +269,7 @@ button:hover {
     margin: auto;
     position: absolute;
     top: 0; left: 0; bottom: 0; right: 0;
-    width: 580px;
+    width: 600px;
     min-height: 300px;
     height: 400px;
     background: #fff;
@@ -323,7 +323,7 @@ button:hover {
 }
 .dialog-textarea {
     height:80px;
-    width: 520px;
+    width: 550px;
     border: solid #000 1px;
     padding: 2px 5px;
     margin: 8px 0px;
@@ -366,6 +366,9 @@ button:hover {
     background: #eee;
 }
 
+.leftb_operation {
+    text-align: right;
+}
 .right-state {
     float: right;
     width: 150px;
@@ -417,6 +420,29 @@ button:hover {
     color: #fff;
 }
 
+.comment-opt {
+    margin-bottom: 5px;
+    text-align: right;
+}
+.comment-opt-btn {
+    width: 60px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: solid #999 1px;
+    background: #fff;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.comment-opt-btn:hover {
+    background: #999;
+    color: #fff;
+}
+.comment-opt-btn-del:hover {
+    background: #FF3A34;
+    color: #fff;
+    border: solid #FF3A34 1px;
+}
 .event-state {
     background: #eee;
     padding: 10px;

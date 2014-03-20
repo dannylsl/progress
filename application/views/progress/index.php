@@ -11,7 +11,7 @@ $str = str_replace("\"", "'", $str);
     $('#mask').after(dialog);
     $('#dialog-content').html("<?=$str;?>");
     $('#mask').fadeIn();
-    $('#jwysiwyg').wysiwyg();
+    $('#jwysiwy_dialog').wysiwyg();
 
 }
 
@@ -29,6 +29,7 @@ function remove_add_dialog() {
     <div class='operation'>
       <button onclick='show_add_dialog()'>ADD TODO</button>
     </div>
+    <? if(isset($done) && $done) echo "<h2>Done</h2>"; ?>
 
     <div class='list'>
     <? foreach($events as $e) : ?>
