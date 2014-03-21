@@ -64,7 +64,8 @@ class Progress_model extends CI_Model {
 
     public function finish_event($eId) {
 
-        $data = array('status'=> 2 );
+        $date = date('Y-m-d H:i:s',time());
+        $data = array('status'=> 2, 'end_date' => $date );
         $this->db->where('id', $eId);
         $this->db->update('prog_events', $data);
         if($this->db->affected_rows() <= 0) {
@@ -83,7 +84,7 @@ class Progress_model extends CI_Model {
 
 
     public function get_events_done() {
-        $this->db->order_by('start_date', 'DESC');
+        $this->db->order_by('end_date', 'DESC');
         $query = $this->db->get_where('prog_events',array('status'=>2)); //status == finished
         return $query->result_array();
     }

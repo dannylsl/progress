@@ -23,7 +23,7 @@ class Progress extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->view('progress/header');
-        $this->load->view('progress/index',$data);
+        $this->load->view('progress/done',$data);
     }
 
 

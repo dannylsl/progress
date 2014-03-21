@@ -24,6 +24,10 @@ button:hover {
     color:#fff;
 }
 
+h3{
+margin: 10px auto;
+color: #999;
+}
 
 .sp10{height: 10px;}
 .sp15{height: 15px;}
@@ -394,7 +398,7 @@ button:hover {
 }
 .right-state {
     float: right;
-    width: 150px;
+    min-width: 150px;
     text-align: center;
     border-bottom: solid #000 2px;
 }
