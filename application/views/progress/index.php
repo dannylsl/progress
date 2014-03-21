@@ -37,8 +37,13 @@ function remove_add_dialog() {
         <div class='state'>
           <img src='<?= base_url() ?>images/arrow_right_black.png' />
         </div>
-        <div class='item-content'><?=$e['title'];?></div>
-        <div class='item-date'><?=$e['start_date']?></div>
+        <div class="item-body">
+            <div class='item-content'>
+                <?=$e['title'];?>
+                <div class='item-content-category'><?=$e['category']?></div>
+            </div>
+            <div class='item-date'><?=$e['start_date']?></div>
+        </div>
       </div>
     <? endforeach; ?>
 
