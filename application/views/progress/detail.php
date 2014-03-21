@@ -43,7 +43,7 @@ function remove_add_dialog() {
         if($event['status'] == 1)
             echo "On-Going";
         else if($event['status'] == 2)
-            echo "Finished";
+            echo "Finished ".$event['end_date'];
         else if($event['status'] == 0)
             echo "Deleted";
     ?>
