@@ -9,6 +9,13 @@ a {
 text-decoration: none;
 color: #000;
 }
+
+ol {
+margin-left: 20px;
+}
+ul {
+margin-left: 20px;
+}
 button {
     background: #fff;
     border: solid #000 1px;
