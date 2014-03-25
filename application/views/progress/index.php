@@ -47,57 +47,6 @@ function remove_add_dialog() {
       </div>
     <? endforeach; ?>
 
-<!--
-      <div class='item'>
-        <div class='state'>
-          <img src='images/checked.png' />
-        </div>
-        <div class='item-content'>hello...lalalall</div>
-        <div class='item-date'>2014-02-11</div>
-      </div>
-      <div class='item'>
-        <div class='state'>
-          <img src='images/circle_ko.png' />
-        </div>
-        <div class='item-content'>hello...lalalall</div>
-        <div class='item-date'>2014-02-11</div>
-      </div>
-      <div class='item'>
-        <div class='state'>
-          <img src='images/remove.png' />
-        </div>
-        <div class='item-content'>hello...lalalall</div>
-        <div class='item-date'>2014-02-11</div>
-      </div>
-      <div class='item'>
-        <div class='state'>
-          <img src='images/tick.png' />
-        </div>
-        <div class='item-content'>hello...lalalall</div>
-        <div class='item-date'>2014-02-11</div>
-      </div>
-      <div class='item'>
-        <div class='state'>
-          <img src='images/cross.png' />
-        </div>
-        <div class='item-content'>hello...lalalall</div>
-        <div class='item-date'>2014-02-11</div>
-      </div>
-      <div class='item'>
-        <div class='state'>
-          <img src='images/more.png' />
-        </div>
-        <div class='item-content'>hello...lalalall</div>
-        <div class='item-date'>2014-02-11</div>
-      </div>
-      <div class='item'>
-        <div class='state'>
-          <img src='images/arrow_right_black.png' />
-        </div>
-        <div class='item-content'>hello...lalalall</div>
-        <div class='item-date'>2014-02-11</div>
-      </div>
--->
     </div>
   </div> <!-- left end -->
 
