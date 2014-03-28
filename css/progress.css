@@ -10,12 +10,6 @@ text-decoration: none;
 color: #000;
 }
 
-ol {
-margin-left: 20px;
-}
-ul {
-margin-left: 20px;
-}
 button {
     background: #fff;
     border: solid #000 1px;
@@ -350,6 +344,7 @@ color: #999;
 
 .dialog-select {
     height:30px;
+    display:block;
 }
 
 .dialog-select:focus {
@@ -436,7 +431,29 @@ color: #999;
 .comment-body {
     padding: 10px 20px 10px 10px;
 }
+.comment-body a{
+color:rgb(241, 127, 50);
+text-decoration:none;
+}
+.comment-body a:hover{
+text-decoration:underline;
 
+}
+
+.comment-body ol {
+margin-left: 20px;
+padding: 10px 10px 10px 40px;
+border: dashed #999 1px;
+margin: 10px auto;
+background: #fff;
+}
+.comment-body ul {
+margin-left: 20px;
+padding: 10px 10px 10px 40px;
+border: dashed #999 1px;
+margin: 10px auto;
+background: #fff;
+}
 .comment-dialog {
     width: 100%;
 }

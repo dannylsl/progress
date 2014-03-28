@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url'] = 'http://localhost.progress/';
+$config['base_url'] = 'http://vpnp-workstation1.bj.intel.com:8081/';
 
 /*
 |--------------------------------------------------------------------------
