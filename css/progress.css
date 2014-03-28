@@ -395,6 +395,22 @@ color: #999;
     border-left: solid #666 10px;
     background: #eee;
 }
+.leftb ol{
+margin-left: 20px;
+padding: 10px 10px 10px 40px;
+border: dashed #999 1px;
+margin: 10px auto;
+background: #fff;
+
+}
+.leftb ul{
+margin-left: 20px;
+padding: 10px 10px 10px 40px;
+border: dashed #999 1px;
+margin: 10px auto;
+background: #fff;
+
+}
 
 .leftb_operation {
     text-align: right;
