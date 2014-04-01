@@ -25,6 +25,13 @@ button:hover {
     color:#fff;
 }
 
+h1 {
+margin: 0 0 15px 0;
+padding-bottom: 10px;
+border-bottom: 1px solid #ccc;
+color: #555;
+}
+
 h3{
 margin: 10px auto;
 color: #999;
@@ -101,7 +108,7 @@ color: #999;
 
 .nav_list {
     width: 50%;
-    min-width:630px;
+    min-width:660px;
     position: relative;
     float: left;
     height: 50px;
@@ -521,7 +528,7 @@ background: #fff;
 
 /* SETTINGS */
 hr {
-    border: solid 1px #000;
+    border: solid 1px #999;
 }
 
 table {
@@ -553,3 +560,60 @@ th,td {
     background: #000;
     color: #fff;
 }
+
+/* History */
+.log_list {
+    margin-top: 10px;
+}
+.day {
+padding: 10px 10px 10px 10px;
+color: #aaa;
+font-size: 18px;
+font-bold: bold;
+}
+.log_item {
+margin-left: 10px;
+border: 1px solid #ccc;
+height: 30px;
+margin-bottom: 10px;
+}
+.log_item .img-box {
+width: 50px;
+height: 30px;
+line-height: 30px;
+float: left;
+text-align: center;
+background: #ccc;
+}
+.log_item .img-box img {
+    height: 20px;
+    vertical-align: middle;
+}
+
+.log_item .time {
+height: 30px;
+line-height: 30px;
+background: #eee;
+padding: 0 10px;
+float: left;
+}
+.log_item .content {
+height: 30px;
+line-height: 30px;
+padding: 0 10px;
+float: left;
+}
+.setting_log{ background:#FFE6BC;}
+.comment_log{ background:#C8ECFF;}
+.event_log{ background:#DDFFCC;}
+
+.log_item a{
+color:rgb(241, 127, 50);
+text-decoration:none;
+}
+.log_item a:hover{
+text-decoration:underline;
+}
+
+
+

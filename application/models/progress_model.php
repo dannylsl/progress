@@ -21,11 +21,15 @@ class Progress_model extends CI_Model {
         $sql = "INSERT INTO `prog_events` VALUES(NULL, '$title', '$category', '$description', '$uId', '$username', '$starttime', '$endtime', '$status', '$note')";
 
         $query =  $this->db->query($sql);
+
+        return $this->db->insert_id('id');
+/*
         if($this->db->affected_rows() <= 0) {
             return 0; // failed
         }else {
             return 1; // success
         }
+*/
     }
 
 
@@ -98,20 +102,24 @@ class Progress_model extends CI_Model {
 
     public function add_comment() {
         $eId = $this->input->post('eId');
+        $e_title = $this->input->post('e_title');
         $u1id = '1';
         $u1name = 'Danny Lee';
         $comment = $this->input->post('comment');
         $status = 1;
         $date = date('Y-m-d H:i:s',time());
 
-        $sql = "INSERT INTO `prog_comments` VALUES(NULL, '$eId', '$u1id', '$u1name', '$comment', '$status', '$date')";
+        $sql = "INSERT INTO `prog_comments` VALUES(NULL, '$eId', '$e_title', '$u1id', '$u1name', '$comment', '$status', '$date')";
 
         $query =  $this->db->query($sql);
+        return $this->db->insert_id('id');
+/*
         if($this->db->affected_rows() <= 0) {
             return 0; // failed
         }else {
             return 1; // success
         }
+*/
     }
 
 
@@ -157,10 +165,17 @@ class Progress_model extends CI_Model {
         }
     }
 
+
     public function get_categorys() {
         $this->db->order_by('datetime', 'ASC');
         $query = $this->db->get_where('prog_settings',array('item'=>'category'));
         return $query->result_array();
+    }
+
+
+    public function get_category($id) {
+        $query = $this->db->get_where('prog_settings', array('id'=>$id));
+        return $query->row_array();
     }
 
 
@@ -172,13 +187,14 @@ class Progress_model extends CI_Model {
         $data = array('item'=>$item, 'value'=>$item_value, 'datetime'=> $date, 'note'=>$note);
 
         $this->db->insert('prog_settings', $data);
-
+        return $this->db->insert_id('id');
+/*
         if($this->db->affected_rows() <= 0) {
             return 0; // failed
         }else {
             return 1; // success
         }
-
+*/
     }
 
 
@@ -191,6 +207,28 @@ class Progress_model extends CI_Model {
         }else {
             return 1; // success
         }
+    }
+
+
+    public function history_add($uId, $uname, $obj_type, $obj_name, $action_type, $action, $url, $rId) {
+
+        $datetime = date('Y-m-d H:i:s',time());
+        $data = array('userId'=> $uId, 'username'=>$uname, 'obj_type'=>$obj_type, 'obj_name'=>$obj_name, 'action_type'=> $action_type, 'action'=>$action, 'url'=> $url, 'datetime'=>$datetime, 'rId'=>$rId);
+
+        $this->db->insert('prog_history', $data);
+
+        if($this->db->affected_rows() <= 0) {
+            return 0; // failed
+        }else {
+            return 1; // success
+        }
+    }
+
+    public function get_history_logs() {
+        $this->db->order_by('datetime', 'DESC');
+        $query = $this->db->get_where('prog_history');
+        return $query->result_array();
 
     }
+
 }

@@ -65,7 +65,7 @@ function delete_comment(eId,cId) {
 </script>
 
 <? foreach($comments as $c) : ?>
-<div class='comment'>
+<div class='comment' id="comment-<?=$c['id']?>">
     <div class='comment-header'>
         <div class='comment-header-left'><?=$c['u1name']?></div>
         <div class='comment-header-right'><?=$c['date']?></div>
@@ -91,6 +91,7 @@ if(isset($edit)&&$edit){
 }else {
     echo form_open('progress/add_comment');
 }
+    echo "<input type='hidden' value='{$event['title']}' name='e_title' />";
 ?>
     <input type='hidden' value='<?=$event['id']?>' name='eId'/>
     <textarea name='comment' id='jwysiwyg' class='comment-textarea'><?=(isset($edit)&&$edit)?$comment['comment']:"" ?></textarea>
