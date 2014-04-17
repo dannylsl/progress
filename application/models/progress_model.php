@@ -8,9 +8,9 @@ class Progress_model extends CI_Model {
     public function add_event() {
 
         $id = NULL;
-        $title = $this->input->post('title');
-        $category = $this->input->post('category');
-        $description = $this->input->post('description');
+        $title = addslashes($this->input->post('title'));
+        $category = addslashes($this->input->post('category'));
+        $description = addslashes($this->input->post('description'));
         $uId = 1;
         $username = '';
         $starttime = date('Y-m-d H:i:s',time());
@@ -106,6 +106,7 @@ class Progress_model extends CI_Model {
         $u1id = '1';
         $u1name = 'Danny Lee';
         $comment = $this->input->post('comment');
+        $comment = addslashes($comment);
         $status = 1;
         $date = date('Y-m-d H:i:s',time());
 
@@ -136,13 +137,15 @@ class Progress_model extends CI_Model {
     }
 
 
-    public function update_comment($cId) {
+    public function update_comment() {
         $cId = $this->input->post('cId');
         $comment = $this->input->post('comment');
+//        $comment = addslashes($comment);
 
         $data = array('comment'=>$comment);
         $this->db->where('id', $cId);
         $this->db->update('prog_comments', $data);
+//        echo $this->db->last_query();;
 
         if($this->db->affected_rows() <= 0) {
             return 0; // failed

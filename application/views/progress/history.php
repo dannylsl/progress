@@ -37,7 +37,7 @@
                 case 'DEL':
                     $img = 'del.png';
                     break;
-                case 'Edit':
+                case 'EDIT':
                     $img = 'edit.png';
                     break;
                 case 'FINISHED':

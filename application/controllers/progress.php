@@ -161,6 +161,9 @@ class Progress extends CI_Controller {
         $data['comments'] = $this->progress_model->get_comments($eId);
 
         $data['comment'] = $this->progress_model->get_comment($cId);
+//        echo $data['comment']['comment'];
+//        $data['comment']['comment'] = stripcslashes($data['comment']['comment']);
+//        echo $data['comment']['comment'];
         $data['edit'] = True;
 
         $this->load->helper('url');
@@ -183,9 +186,9 @@ class Progress extends CI_Controller {
             $uname = "Danny Lee";
             $obj_type = "Comment";  // Setting | Event | Comment
             $obj_name = $e_title;
-            $action_type = "Edit"; // ADD | EDIT | DEL
+            $action_type = "EDIT"; // ADD | EDIT | DEL
             $url = "index.php/progress/detail/".$eId."#comment-".$cId;
-            $action = "Edit Comment $cId to Event [ {$e_title} ]";
+            $action = "Edit Comment to Event";
 
             $this->progress_model->history_add($uId, $uname, $obj_type, $obj_name, $action_type, $action, $url, $cId);
 

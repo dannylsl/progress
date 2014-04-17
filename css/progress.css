@@ -36,10 +36,20 @@ h3{
 margin: 10px auto;
 color: #999;
 }
-
+/*
+blockquote {
+background: #fff;
+}
+blockquote div{
+padding: 10px;
+border: dashed #999 1px;
+margin: 10px 0;
+}
+*/
 .sp10{height: 10px;}
 .sp15{height: 15px;}
 .sp20{height: 20px;}
+
 
 /* FOR LOGIN */
 .main {
