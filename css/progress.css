@@ -20,7 +20,7 @@ button {
     outline:none;
 }
 button:hover {
-    //background:#3C7FFF;
+    background:#3C7FFF;
     background:#000;
     color:#fff;
 }
@@ -625,5 +625,28 @@ text-decoration:none;
 text-decoration:underline;
 }
 
+/* REPORT RELATED */
+ul.weeklist {
+ list-style:none;
+}
 
-
+ul.weeklist li {
+    float:left;
+    overflow:auto;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    margin-right:10px;
+    background: #000;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+ul.weeklist li a{
+color: #fff;
+padding: 6px 5px;
+}
+ul.weeklist li a:hover{
+height: 30px;
+background:#999;
+}

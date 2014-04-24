@@ -26,6 +26,15 @@ class Progress extends CI_Controller {
         $this->load->view('progress/done',$data);
     }
 
+    public function report() {
+        $data['start_week'] = $this->progress_model->get_start_week();
+        $data['cur_week'] = $this->progress_model->get_current_week();
+        $this->load->helper('url');
+        $this->load->helper('form');
+        $this->load->view('progress/header');
+        $this->load->view('progress/report',$data);
+    }
+
 
     public function addtodo($eId = 0) {
         $this->load->helper('url');

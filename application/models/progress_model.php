@@ -234,4 +234,17 @@ class Progress_model extends CI_Model {
 
     }
 
+    /*************  REPORT RELATED  *******************/
+    public function get_start_week() {
+        $this->db->order_by('start_date', 'ASC');
+        $this->db->limit(1);
+        $query = $this->db->get_where('prog_events');
+        $event = $query->row_array();
+        //print_r($event);
+        return intval(date('W',strtotime($event['start_date'])));
+    }
+    public function get_current_week() {
+        return intval(date('W',strtotime(date('Y-m-d'))));
+    }
+
 }

@@ -14,7 +14,7 @@
   <div class='nav_list'>
     <a href='<?= base_url() ?>index.php/progress/'>TODO</a>
     <a href='<?= base_url() ?>index.php/progress/done'>DONE</a>
-    <a href='#'>REPORT</a>
+    <a href='<?= base_url() ?>index.php/progress/report'>REPORT</a>
     <a href='<?= base_url()?>index.php/progress/settings'>SETTING</a>
     <a href='<?= base_url()?>index.php/progress/history'>HISTORY</a>
   </div>
