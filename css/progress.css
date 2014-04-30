@@ -627,7 +627,9 @@ text-decoration:underline;
 
 /* REPORT RELATED */
 ul.weeklist {
- list-style:none;
+list-style:none;
+overflow:auto;
+margin-bottom: 20px;
 }
 
 ul.weeklist li {
@@ -648,5 +650,11 @@ padding: 6px 5px;
 }
 ul.weeklist li a:hover{
 height: 30px;
-background:#999;
+background:#eee;
+}
+
+.report {
+    background: #ccc;
+    height: 500px;
+    width: 100%;
 }
