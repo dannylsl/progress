@@ -29,10 +29,15 @@ class Progress extends CI_Controller {
     public function report() {
         $data['start_week'] = $this->progress_model->get_start_week();
         $data['cur_week'] = $this->progress_model->get_current_week();
+        //$data['']
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->view('progress/header');
         $this->load->view('progress/report',$data);
+    }
+
+    public function report_detail($week) {
+        
     }
 
 
@@ -147,6 +152,12 @@ class Progress extends CI_Controller {
         $this->load->helper('url');
         $eId = $this->input->post('eId');
         $e_title = $this->input->post('e_title');
+        $comment = $this->input->post('comment');
+        if($comment == "") {
+            header("Location:".base_url()."index.php/progress/detail/".$eId);
+            return;
+        }
+
         $cId = $this->progress_model->add_comment();
         if(0 == $cId) {
             echo "FAIL TO ADD EVENT";

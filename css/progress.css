@@ -643,6 +643,7 @@ ul.weeklist li {
     color: #fff;
     border: 1px solid #555;
     border-radius: 5px;
+    margin-bottom: 10px;
 }
 ul.weeklist li a{
 color: #fff;
@@ -657,4 +658,5 @@ background:#eee;
     background: #ccc;
     height: 500px;
     width: 100%;
+    padding: 10px 15px;
 }

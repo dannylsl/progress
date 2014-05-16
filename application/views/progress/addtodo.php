@@ -19,7 +19,6 @@ if (isset($edit) && $edit) {
         }
         ?>
     <? endforeach;?>
-
 </select>
 <div class='sp15'></div>
 <textarea class='dialog-textarea' id='jwysiwy_dialog' name='description' placeholder='CONTENT...'><?=($flag)?"{$event['description']}":"" ?></textarea>

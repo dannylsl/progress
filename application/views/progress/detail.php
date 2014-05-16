@@ -96,7 +96,8 @@ if(isset($edit)&&$edit){
     <input type='hidden' value='<?=$event['id']?>' name='eId'/>
     <textarea name='comment' id='jwysiwyg' class='comment-textarea'><?=(isset($edit)&&$edit)?$comment['comment']:"" ?></textarea>
     <div class="sp20"></div>
-    <div align='right'><input type='submit' class='input-button' value='ADD COMMENT'></div>
+    <div align='right'>
+    <input type='submit' class='input-button' value='ADD COMMENT'></div>
 </form>
 </div>
 <script>
