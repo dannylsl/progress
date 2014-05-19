@@ -66,6 +66,19 @@ margin: 10px 0;
     width: 200px;
     margin: 0px auto;
 }
+.login_table .input_div {
+    width: 200px;
+    height: 50px;
+    margin: 5px auto;
+}
+.login_table
+.ajax_span{
+    z-index: 10;
+    position: relative;
+    top:-35px;
+    right:-55px;
+    font-weight:bold;
+}
 .input-login {
     height:30px;
     width: 180px;
@@ -660,3 +673,4 @@ background:#eee;
     width: 100%;
     padding: 10px 15px;
 }
+

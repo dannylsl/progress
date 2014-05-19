@@ -280,5 +280,15 @@ class Progress_model extends CI_Model {
         return $week;
     }
 
+    public function is_uname_exist($username) {
+        $query = $this->db->get_where('prog_users', array('username' => $username));
+        $user = $query->row_array();
 
+        if(empty($user)) {
+            return false;
+        }else{
+            return true;
+        }
+
+    }
 }

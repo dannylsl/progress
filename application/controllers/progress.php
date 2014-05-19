@@ -310,4 +310,23 @@ class Progress extends CI_Controller {
         $this->load->view('progress/header');
         $this->load->view('progress/history', $data);
     }
+
+    public function login() {
+        $this->load->helper('url');
+
+        $this->load->view('progress/login');
+    }
+
+    public function register() {
+        $this->load->helper('url');
+        $this->load->view('progress/register');
+    }
+
+    public function uname_check($username) {
+       if($this->progress_model->is_uname_exist($username)) {
+            echo "<span class='ajax_span' id='uname_span' style='red'>EXIST</span>";
+       }else{
+            echo "<span class='ajax_span' id='uname_span' style='color:green'>Available</span>";
+       }
+    }
 }
