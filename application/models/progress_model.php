@@ -291,4 +291,8 @@ class Progress_model extends CI_Model {
         }
 
     }
+
+    public function add_user() {
+    
+    }
 }
