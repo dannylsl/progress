@@ -292,7 +292,11 @@ class Progress_model extends CI_Model {
 
     }
 
-    public function add_user() {
-    
+    public function add_user($username, $password) {
+        $reg_date = date('Y-m-d H:i:s',time());
+
+        $data = array('username'=>$username, 'passwd'=>$password, 'register_date'=>$reg_date, 'type'=>1);
+        $this->db->insert('prog_users', $data);
+        return $this->db->insert_id('id');
     }
 }

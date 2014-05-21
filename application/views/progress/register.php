@@ -26,7 +26,7 @@ function form_submit(){
         return;
     }
     if($('#uname_ret').val() == 0) {
-        alert('用户名已存在');
+        alert('用户名不合法');
         $('#username').focus();
         return;
     }
@@ -47,12 +47,17 @@ function uname_check() {
     var uname = $('#username').val();
     if(uname == "")
         return;
+    var space = uname.split(" ");
+    if(space.length != 1) {
+        $('#username').after("<span class='ajax_span' id='uname_span' style='color:red;'>No Space</span>");
+        return;
+    }
     $.ajax({
         url:"<?=base_url()?>index.php/progress/uname_check/"+uname,
         async:false,
         success:function(data, state) {
             if(data == '1') {
-                $('#username').after("<span class='ajax_span' id='uname_span' style='red'>EXIST</span>");
+                $('#username').after("<span class='ajax_span' id='uname_span' style='color:red;'>EXIST</span>");
                 $('#uname_ret').val(0);
             }else if(data == '0') {
                 $('#username').after("<span class='ajax_span' id='uname_span' style='color:green'>Available</span>");
