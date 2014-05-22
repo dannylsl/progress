@@ -280,6 +280,7 @@ class Progress_model extends CI_Model {
         return $week;
     }
 
+
     public function is_uname_exist($username) {
         $query = $this->db->get_where('prog_users', array('username' => $username));
         $user = $query->row_array();
@@ -292,6 +293,7 @@ class Progress_model extends CI_Model {
 
     }
 
+
     public function add_user($username, $password) {
         $reg_date = date('Y-m-d H:i:s',time());
 
@@ -299,4 +301,19 @@ class Progress_model extends CI_Model {
         $this->db->insert('prog_users', $data);
         return $this->db->insert_id('id');
     }
+
+
+    public function get_user($username, $password) {
+        $query = $this->db->get_where('prog_users',array('username'=>$username, 'passwd'=>$password)); //status == on-going
+        $user = $query->row_array();
+        return $user;
+    }
+
+    public function update_last_login($uId) {
+        $last_login = date('Y-m-d H:i:s');
+        $data = array('last_login'=> $last_login);
+        $this->db->where('uId', $uId);
+        $this->db->update('prog_users', $data);
+    }
+
 }

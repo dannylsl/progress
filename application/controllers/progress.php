@@ -313,8 +313,27 @@ class Progress extends CI_Controller {
 
     public function login() {
         $this->load->helper('url');
-
         $this->load->view('progress/login');
+    }
+
+    public function id_confirm() {
+        $this->load->helper('url');
+        $this->load->library('session');
+        $username = trim($this->input->post('username'));
+        $password = md5($this->input->post('password'));
+
+        $user = $this->progress_model->get_user($username, $password);
+        print_r($user);
+        if(empty($user)) {
+           echo "USER EMPTY";
+           echo "<script>alert('USERNAME OR PASSWORD ERROR!');history.back();</script>";
+        }else{
+            $this->progress_model->update_last_login($user['uId']);
+           //START SESSION
+            $this->session->set_userdata($user);
+            $this->session->userdata('uId');
+            header("Location:".base_url()."index.php");
+        }
     }
 
     public function register() {
@@ -323,12 +342,13 @@ class Progress extends CI_Controller {
     }
 
     public function newuser() {
+        $this->load->helper('url');
         $username = addslashes($this->input->post('username'));
         $password = md5($this->input->post('password'));
         if($this->progress_model->add_user($username, $password)) {
-            echo "<script>alert('Register successfully')</script>";
+            echo "<script>alert('Register successfully');location.href='".base_url()."index.php/progress/login'</script>";
         }else{
-            echo "FAILED TO REGISTER";
+            echo "<script>alert('Register Failure');location.href='".base_url()."index.php/progress/register'</script>";
         }
     }
 
