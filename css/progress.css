@@ -704,6 +704,17 @@ min-width: 1280px;
     width:900px;
     height: 60px;
 }
+.footer .userinfo .datalist ul{
+    width: 100%;
+    overflow: auto;
+}
+.footer .userinfo .datalist ul li{
+    font-size: 24px;
+    min-width:130px;
+    overflow:hidden;
+    float: left;
+    padding-right: 15px;
+}
 .footer .userinfo .exit {
     width: 150px;
     float: right;

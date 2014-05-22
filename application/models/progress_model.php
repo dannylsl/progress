@@ -316,4 +316,17 @@ class Progress_model extends CI_Model {
         $this->db->update('prog_users', $data);
     }
 
+    public function get_statistic($uId) {
+        $statistic = array();
+        $todo_query = $this->db->get_where('prog_events',array('uId'=>$uId,'status'=>1));
+        $statistic['todos'] = $todo_query->num_rows();
+        $done_query = $this->db->get_where('prog_events',array('uId'=>$uId,'status'=>2));
+        $statistic['dones'] = $done_query->num_rows();
+        $c_query = $this->db->get_where('prog_comments',array('u1Id'=>$uId));
+        $statistic['comments'] = $c_query->num_rows();
+        $h_query = $this->db->get_where('prog_history',array('userId'=>$uId));
+        $statistic['history'] = $h_query->num_rows();
+        return $statistic;
+    }
+
 }

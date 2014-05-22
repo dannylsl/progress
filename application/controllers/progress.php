@@ -17,6 +17,10 @@ class Progress extends CI_Controller {
 
     public function index() {
         $data['username'] = $this->islogin();
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
+        $data['statistic'] = $this->progress_model->get_statistic($uId);
+
         $data['events'] = $this->progress_model->get_events();
         $this->load->helper('url');
         $this->load->helper('form');
@@ -28,6 +32,10 @@ class Progress extends CI_Controller {
 
     public function done() {
         $data['username'] = $this->islogin();
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
+        $data['statistic'] = $this->progress_model->get_statistic($uId);
+
         $data['events'] = $this->progress_model->get_events_done();
         $data['done'] = True;
 
@@ -40,6 +48,10 @@ class Progress extends CI_Controller {
 
     public function report() {
         $data['username'] = $this->islogin();
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
+        $data['statistic'] = $this->progress_model->get_statistic($uId);
+
         $data['start_week'] = $this->progress_model->get_start_week();
         $data['cur_week'] = $this->progress_model->get_current_week();
         //$data['']
@@ -153,6 +165,10 @@ class Progress extends CI_Controller {
 
     public function detail($eId) {
         $data['username'] = $this->islogin();
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
+        $data['statistic'] = $this->progress_model->get_statistic($uId);
+
         $data['event'] = $this->progress_model->get_event($eId);
         $data['comments'] = $this->progress_model->get_comments($eId);
 
@@ -193,6 +209,10 @@ class Progress extends CI_Controller {
 
     public function edit_comment($eId, $cId){
         $data['username'] = $this->islogin();
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
+        $data['statistic'] = $this->progress_model->get_statistic($uId);
+
         $data['event'] = $this->progress_model->get_event($eId);
         $data['comments'] = $this->progress_model->get_comments($eId);
 
@@ -256,6 +276,10 @@ class Progress extends CI_Controller {
 
     public function settings() {
         $data['username'] = $this->islogin();
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
+        $data['statistic'] = $this->progress_model->get_statistic($uId);
+
         $this->load->helper('url');
         $this->load->helper('form');
 
@@ -323,6 +347,10 @@ class Progress extends CI_Controller {
 
     public function history() {
         $data['username'] = $this->islogin();
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
+        $data['statistic'] = $this->progress_model->get_statistic($uId);
+
         $this->load->helper('url');
 
         $data['logs'] = $this->progress_model->get_history_logs();
