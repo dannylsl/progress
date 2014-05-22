@@ -30,9 +30,8 @@ function isEmpty(id) {
 function form_submit() {
     var ret_uname = isEmpty('username');
     var ret_pwd = isEmpty('password');
-    console.log(ret_pwd+' '+ret_uname);
     if( (false == ret_pwd) && (ret_uname == false) ) {
-        $('#tlogin_form').submit();
+        $('#login_form').submit();
     }
 }
 

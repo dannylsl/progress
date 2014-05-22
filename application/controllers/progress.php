@@ -10,23 +10,24 @@ class Progress extends CI_Controller {
         $this->load->helper('url');
         $this->load->library('session');
         if( (FALSE !== $this->session->userdata('username')) && (FALSE !== $this->session->userdata('uId') )) {
-            return true;
+            return $this->session->userdata('username');
         }
         header("Location:".base_url()."index.php/progress/login");
     }
 
     public function index() {
-        $this->islogin();
+        $data['username'] = $this->islogin();
         $data['events'] = $this->progress_model->get_events();
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->view('progress/header');
         $this->load->view('progress/index',$data);
-        $this->load->view('progress/footer');
+        $this->load->view('progress/footer',$data);
     }
 
 
     public function done() {
+        $data['username'] = $this->islogin();
         $data['events'] = $this->progress_model->get_events_done();
         $data['done'] = True;
 
@@ -34,10 +35,11 @@ class Progress extends CI_Controller {
         $this->load->helper('form');
         $this->load->view('progress/header');
         $this->load->view('progress/done',$data);
-        $this->load->view('progress/footer');
+        $this->load->view('progress/footer',$data);
     }
 
     public function report() {
+        $data['username'] = $this->islogin();
         $data['start_week'] = $this->progress_model->get_start_week();
         $data['cur_week'] = $this->progress_model->get_current_week();
         //$data['']
@@ -45,11 +47,10 @@ class Progress extends CI_Controller {
         $this->load->helper('form');
         $this->load->view('progress/header');
         $this->load->view('progress/report',$data);
-        $this->load->view('progress/footer');
+        $this->load->view('progress/footer',$data);
     }
 
     public function report_detail($week) {
-        
     }
 
 
@@ -151,6 +152,7 @@ class Progress extends CI_Controller {
     }
 
     public function detail($eId) {
+        $data['username'] = $this->islogin();
         $data['event'] = $this->progress_model->get_event($eId);
         $data['comments'] = $this->progress_model->get_comments($eId);
 
@@ -158,7 +160,7 @@ class Progress extends CI_Controller {
         $this->load->helper('form');
         $this->load->view('progress/header');
         $this->load->view('progress/detail', $data);
-        $this->load->view('progress/footer');
+        $this->load->view('progress/footer',$data);
     }
 
     public function add_comment() {
@@ -190,6 +192,7 @@ class Progress extends CI_Controller {
     }
 
     public function edit_comment($eId, $cId){
+        $data['username'] = $this->islogin();
         $data['event'] = $this->progress_model->get_event($eId);
         $data['comments'] = $this->progress_model->get_comments($eId);
 
@@ -203,7 +206,7 @@ class Progress extends CI_Controller {
         $this->load->helper('form');
         $this->load->view('progress/header');
         $this->load->view('progress/detail', $data);
-        $this->load->view('progress/footer');
+        $this->load->view('progress/footer',$data);
     }
 
 
@@ -252,6 +255,7 @@ class Progress extends CI_Controller {
     }
 
     public function settings() {
+        $data['username'] = $this->islogin();
         $this->load->helper('url');
         $this->load->helper('form');
 
@@ -259,6 +263,7 @@ class Progress extends CI_Controller {
 
         $this->load->view('progress/header');
         $this->load->view('progress/settings', $data);
+        $this->load->view('progress/footer', $data);
     }
 
 
@@ -317,13 +322,14 @@ class Progress extends CI_Controller {
 */
 
     public function history() {
+        $data['username'] = $this->islogin();
         $this->load->helper('url');
 
         $data['logs'] = $this->progress_model->get_history_logs();
 
         $this->load->view('progress/header');
         $this->load->view('progress/history', $data);
-        $this->load->view('progress/footer');
+        $this->load->view('progress/footer',$data);
     }
 
     public function login() {
@@ -338,13 +344,11 @@ class Progress extends CI_Controller {
         $password = md5($this->input->post('password'));
 
         $user = $this->progress_model->get_user($username, $password);
-        print_r($user);
+        //print_r($user);
         if(empty($user)) {
-           echo "USER EMPTY";
            echo "<script>alert('USERNAME OR PASSWORD ERROR!');history.back();</script>";
         }else{
             $this->progress_model->update_last_login($user['uId']);
-           //START SESSION
             $this->session->set_userdata($user);
             $this->session->userdata('uId');
             header("Location:".base_url()."index.php");
@@ -373,6 +377,14 @@ class Progress extends CI_Controller {
        }else{
             echo '0';
        }
+    }
+
+    public function safe_exit() {
+        $this->load->helper('url');
+        $this->load->library('session');
+        $items = array('uId'=>'','username'=>'','passwd'=>'', 'email'=>'','register_date'=>'', 'type'=>'', 'last_login'=>'');
+        $this->session->unset_userdata($items);
+        header("Location:".base_url()."index.php/progress/login");
     }
 
 }
