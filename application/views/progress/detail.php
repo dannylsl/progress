@@ -128,5 +128,3 @@ function del_event() {
 
 
 <div id='endle'></div>
-</body>
-</html>

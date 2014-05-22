@@ -91,6 +91,3 @@ function remove_add_dialog() {
   </div>
 </div>
 <div id='endle'></div>
-
-</body>
-</html>

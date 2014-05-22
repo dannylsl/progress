@@ -5,14 +5,24 @@ class Progress extends CI_Controller {
         $this->load->model('progress_model');
     }
 
+    public function islogin() {
+
+        $this->load->helper('url');
+        $this->load->library('session');
+        if( (FALSE !== $this->session->userdata('username')) && (FALSE !== $this->session->userdata('uId') )) {
+            return true;
+        }
+        header("Location:".base_url()."index.php/progress/login");
+    }
 
     public function index() {
+        $this->islogin();
         $data['events'] = $this->progress_model->get_events();
-
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->view('progress/header');
         $this->load->view('progress/index',$data);
+        $this->load->view('progress/footer');
     }
 
 
@@ -24,6 +34,7 @@ class Progress extends CI_Controller {
         $this->load->helper('form');
         $this->load->view('progress/header');
         $this->load->view('progress/done',$data);
+        $this->load->view('progress/footer');
     }
 
     public function report() {
@@ -34,6 +45,7 @@ class Progress extends CI_Controller {
         $this->load->helper('form');
         $this->load->view('progress/header');
         $this->load->view('progress/report',$data);
+        $this->load->view('progress/footer');
     }
 
     public function report_detail($week) {
@@ -146,6 +158,7 @@ class Progress extends CI_Controller {
         $this->load->helper('form');
         $this->load->view('progress/header');
         $this->load->view('progress/detail', $data);
+        $this->load->view('progress/footer');
     }
 
     public function add_comment() {
@@ -190,6 +203,7 @@ class Progress extends CI_Controller {
         $this->load->helper('form');
         $this->load->view('progress/header');
         $this->load->view('progress/detail', $data);
+        $this->load->view('progress/footer');
     }
 
 
@@ -309,6 +323,7 @@ class Progress extends CI_Controller {
 
         $this->load->view('progress/header');
         $this->load->view('progress/history', $data);
+        $this->load->view('progress/footer');
     }
 
     public function login() {
