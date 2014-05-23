@@ -83,13 +83,14 @@ class Progress extends CI_Controller {
 
     public function save_event() {
         $this->load->helper('url');
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
+        $uname =  $this->session->userdata('username');
         $title = $this->input->post('title');
-        $result = $this->progress_model->add_event();
+        $result = $this->progress_model->add_event($uId, $uname);
         if(0 == $result) {
             echo "FAIL TO ADD EVENT";
         }else {
-            $uId = 1;
-            $uname = "Danny Lee";
             $obj_type = "Event";  // Setting | Event | Comment
             $obj_name = $title;
             $action_type = "ADD"; // ADD | EDIT | DEL
@@ -110,8 +111,9 @@ class Progress extends CI_Controller {
         if(0 == $this->progress_model->update_event() ) {
             echo "FAIL TO ADD EVENT";
         }else {
-            $uId = 1;
-            $uname = "Danny Lee";
+            $this->load->library('session');
+            $uId = $this->session->userdata('uId');
+            $uname =  $this->session->userdata('username');
             $obj_type = "Event";  // Setting | Event | Comment
             $obj_name = $title;
             $action_type = "EDIT"; // ADD | EDIT | DEL
@@ -130,8 +132,9 @@ class Progress extends CI_Controller {
         if(0 == $this->progress_model->delete_event($eId) ) {
             echo "FAIL TO ADD EVENT";
         }else {
-            $uId = 1;
-            $uname = "Danny Lee";
+            $this->load->library('session');
+            $uId = $this->session->userdata('uId');
+            $uname =  $this->session->userdata('username');
             $obj_type = "Event";  // Setting | Event | Comment
             $obj_name = $event['title'];
             $action_type = "DEL"; // ADD | EDIT | DEL
@@ -150,8 +153,9 @@ class Progress extends CI_Controller {
         if(0 == $this->progress_model->finish_event($eId) ) {
             echo "FAIL TO ADD EVENT";
         }else {
-            $uId = 1;
-            $uname = "Danny Lee";
+            $this->load->library('session');
+            $uId = $this->session->userdata('uId');
+            $uname =  $this->session->userdata('username');
             $obj_type = "Event";  // Setting | Event | Comment
             $obj_name = $event['title'];
             $action_type = "FINISHED"; // ADD | EDIT | DEL
@@ -181,20 +185,27 @@ class Progress extends CI_Controller {
 
     public function add_comment() {
         $this->load->helper('url');
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
+        $uname =  $this->session->userdata('username');
+
         $eId = $this->input->post('eId');
         $e_title = $this->input->post('e_title');
         $comment = $this->input->post('comment');
+        $u1id = $uId;
+        $u1name = $uname;
+        $comment = $this->input->post('comment');
+
         if($comment == "") {
             header("Location:".base_url()."index.php/progress/detail/".$eId);
             return;
         }
+        $comment = addslashes($comment);
 
-        $cId = $this->progress_model->add_comment();
+        $cId = $this->progress_model->add_comment($u1id, $u1name, $comment);
         if(0 == $cId) {
             echo "FAIL TO ADD EVENT";
         }else {
-            $uId = 1;
-            $uname = "Danny Lee";
             $obj_type = "Comment";  // Setting | Event | Comment
             $obj_name = $e_title;
             $action_type = "ADD"; // ADD | EDIT | DEL
@@ -217,7 +228,7 @@ class Progress extends CI_Controller {
         $data['comments'] = $this->progress_model->get_comments($eId);
 
         $data['comment'] = $this->progress_model->get_comment($cId);
-//        echo $data['comment']['comment'];
+//      udo  echo $data['comment']['comment'];
 //        $data['comment']['comment'] = stripcslashes($data['comment']['comment']);
 //        echo $data['comment']['comment'];
         $data['edit'] = True;
@@ -239,8 +250,9 @@ class Progress extends CI_Controller {
         if(0 == $this->progress_model->update_comment() ) {
             echo "FAIL TO ADD EVENT";
         }else {
-            $uId = 1;
-            $uname = "Danny Lee";
+            $this->load->library('session');
+            $uId = $this->session->userdata('uId');
+            $uname =  $this->session->userdata('username');
             $obj_type = "Comment";  // Setting | Event | Comment
             $obj_name = $e_title;
             $action_type = "EDIT"; // ADD | EDIT | DEL
@@ -261,8 +273,9 @@ class Progress extends CI_Controller {
         if(0 == $this->progress_model->delete_comment($cId) ) {
             echo "FAIL TO ADD EVENT";
         }else {
-            $uId = 1;
-            $uname = "Danny Lee";
+            $this->load->library('session');
+            $uId = $this->session->userdata('uId');
+            $uname =  $this->session->userdata('username');
             $obj_type = "Comment";  // Setting | Event | Comment
             $obj_name = $event['title'];
             $action_type = "DEL"; // ADD | EDIT | DEL
@@ -298,8 +311,9 @@ class Progress extends CI_Controller {
         if( 0 == $result) {
             echo "FAIL TO ADD EVENT";
         }else {
-            $uId = 1;
-            $uname = "Danny Lee";
+            $this->load->library('session');
+            $uId = $this->session->userdata('uId');
+            $uname =  $this->session->userdata('username');
             $obj_type = "Setting";  // Setting | Event | Comment
             $obj_name = 'Category';
             $action_type = "ADD"; // ADD | EDIT | DEL
@@ -317,8 +331,9 @@ class Progress extends CI_Controller {
         if( 0 == $this->progress_model->remove_category($id)) {
             echo "FAIL TO ADD EVENT";
         }else {
-            $uId = 1;
-            $uname = "Danny Lee";
+            $this->load->library('session');
+            $uId = $this->session->userdata('uId');
+            $uname =  $this->session->userdata('username');
             $obj_type = "Setting";  // Setting | Event | Comment
             $obj_name = 'Category';
             $action_type = "DEL"; // ADD | EDIT | DEL
@@ -353,7 +368,7 @@ class Progress extends CI_Controller {
 
         $this->load->helper('url');
 
-        $data['logs'] = $this->progress_model->get_history_logs();
+        $data['logs'] = $this->progress_model->get_history_logs($uId);
 
         $this->load->view('progress/header');
         $this->load->view('progress/history', $data);
