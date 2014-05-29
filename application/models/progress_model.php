@@ -5,14 +5,12 @@ class Progress_model extends CI_Model {
         $this->load->database();
     }
 
-    public function add_event() {
+    public function add_event($uId, $username) {
 
         $id = NULL;
         $title = addslashes($this->input->post('title'));
         $category = addslashes($this->input->post('category'));
         $description = addslashes($this->input->post('description'));
-        $uId = 1;
-        $username = '';
         $starttime = date('Y-m-d H:i:s',time());
         $endtime = '0000-00-00 00:00:00';
         $status = 1;
@@ -100,13 +98,11 @@ class Progress_model extends CI_Model {
     }
 
 
-    public function add_comment() {
+    public function add_comment($uId, $username, $comment) {
         $eId = $this->input->post('eId');
         $e_title = $this->input->post('e_title');
-        $u1id = '1';
-        $u1name = 'Danny Lee';
-        $comment = $this->input->post('comment');
-        $comment = addslashes($comment);
+        $u1id = $uId;
+        $u1name = $username;
         $status = 1;
         $date = date('Y-m-d H:i:s',time());
 
@@ -227,9 +223,9 @@ class Progress_model extends CI_Model {
         }
     }
 
-    public function get_history_logs() {
+    public function get_history_logs($uId) {
         $this->db->order_by('datetime', 'DESC');
-        $query = $this->db->get_where('prog_history');
+        $query = $this->db->get_where('prog_history', array('userId'=>$uId));
         return $query->result_array();
 
     }

@@ -55,7 +55,7 @@ $(document).ready(function() {
     <div><input type='password' name='password' id='password' class='input-login' placeholder='密码'/></div>
     <div>
       <input type='button' id='login' class='input-button' value='登陆' />
-      <input type='button' id='register' class='input-button' value='注册' />
+      <input type='button' id='register' class='input-button' onclick="javascript:location.href='<?=base_url()?>index.php/progress/register'" value='注册' />
     </div>
     </form>
   </div>
