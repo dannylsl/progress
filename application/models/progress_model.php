@@ -78,16 +78,16 @@ class Progress_model extends CI_Model {
     }
 
 
-    public function get_events() {
+    public function get_events($uId) {
         $this->db->order_by('start_date', 'DESC');
-        $query = $this->db->get_where('prog_events',array('status'=>1)); //status == on-going
+        $query = $this->db->get_where('prog_events',array('uId'=>$uId,'status'=>1)); //status == on-going
         return $query->result_array();
     }
 
 
-    public function get_events_done() {
+    public function get_events_done($uId) {
         $this->db->order_by('end_date', 'DESC');
-        $query = $this->db->get_where('prog_events',array('status'=>2)); //status == finished
+        $query = $this->db->get_where('prog_events',array('uId'=>$uId,'status'=>2)); //status == finished
         return $query->result_array();
     }
 
@@ -165,9 +165,9 @@ class Progress_model extends CI_Model {
     }
 
 
-    public function get_categorys() {
+    public function get_categorys($uId) {
         $this->db->order_by('datetime', 'ASC');
-        $query = $this->db->get_where('prog_settings',array('item'=>'category'));
+        $query = $this->db->get_where('prog_settings',array('uId'=>$uId,'item'=>'category'));
         return $query->result_array();
     }
 
@@ -178,12 +178,12 @@ class Progress_model extends CI_Model {
     }
 
 
-    public function add_category($item_value) {
+    public function add_category($uId,$item_value) {
         $date = date('Y-m-d H:i:s',time());
         $item = "category";
         $note = '';
 
-        $data = array('item'=>$item, 'value'=>$item_value, 'datetime'=> $date, 'note'=>$note);
+        $data = array('item'=>$item, 'uId'=>$uId, 'value'=>$item_value, 'datetime'=> $date, 'note'=>$note);
 
         $this->db->insert('prog_settings', $data);
         return $this->db->insert_id('id');

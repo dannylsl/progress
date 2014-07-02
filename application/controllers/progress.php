@@ -21,7 +21,7 @@ class Progress extends CI_Controller {
         $uId = $this->session->userdata('uId');
         $data['statistic'] = $this->progress_model->get_statistic($uId);
 
-        $data['events'] = $this->progress_model->get_events();
+        $data['events'] = $this->progress_model->get_events($uId);
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->view('progress/header');
@@ -36,7 +36,7 @@ class Progress extends CI_Controller {
         $uId = $this->session->userdata('uId');
         $data['statistic'] = $this->progress_model->get_statistic($uId);
 
-        $data['events'] = $this->progress_model->get_events_done();
+        $data['events'] = $this->progress_model->get_events_done($uId);
         $data['done'] = True;
 
         $this->load->helper('url');
@@ -69,8 +69,10 @@ class Progress extends CI_Controller {
     public function addtodo($eId = 0) {
         $this->load->helper('url');
         $this->load->helper('form');
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
 
-        $data['categorys'] = $this->progress_model->get_categorys();
+        $data['categorys'] = $this->progress_model->get_categorys($uId);
 
         if(isset($eId) && $eId != 0) {
             $data['edit'] = True;
@@ -296,7 +298,7 @@ class Progress extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper('form');
 
-        $data['categorys'] = $this->progress_model->get_categorys();
+        $data['categorys'] = $this->progress_model->get_categorys($uId);
 
         $this->load->view('progress/header');
         $this->load->view('progress/settings', $data);
@@ -306,13 +308,13 @@ class Progress extends CI_Controller {
 
     public function add_category() {
         $this->load->helper('url');
+		$this->load->library('session');
+		$uId = $this->session->userdata('uId');
         $item_value = $this->input->post('item_name');
-        $result = $this->progress_model->add_category($item_value);
+        $result = $this->progress_model->add_category($uId,$item_value);
         if( 0 == $result) {
             echo "FAIL TO ADD EVENT";
         }else {
-            $this->load->library('session');
-            $uId = $this->session->userdata('uId');
             $uname =  $this->session->userdata('username');
             $obj_type = "Setting";  // Setting | Event | Comment
             $obj_name = 'Category';
@@ -327,6 +329,8 @@ class Progress extends CI_Controller {
 
     public function remove_category($id) {
         $this->load->helper('url');
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
         $category = $this->progress_model->get_category($id);
         if( 0 == $this->progress_model->remove_category($id)) {
             echo "FAIL TO ADD EVENT";
