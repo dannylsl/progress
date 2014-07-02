@@ -98,6 +98,36 @@ if(isset($edit)&&$edit){
     <div class="sp20"></div>
     <div align='right'>
     <input type='submit' class='input-button' value='ADD COMMENT'></div>
+
+	<div class="wmd-panel wmd-preview" id="wmd-preview"></div>
+	<div class="wmd-panel">
+		<div id="wmd-button-bar"></div>
+		<textarea class="wmd-input" id="wmd-input"></textarea>
+	</div>
+	<script type="text/javascript">
+		(function () {
+			var converter1 = Markdown.getSanitizingConverter();
+			
+			converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+				return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+					return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+				});
+			});
+			
+			var editor1 = new Markdown.Editor(converter1);
+			
+			editor1.run();
+			
+			
+			var help = function () { alert("Do you need help?"); }
+			var options = {
+				helpButton: { handler: help },
+				strings: { quoteexample: "whatever you're quoting, put it right here" }
+			};
+		})();
+	</script>
+
+
 </form>
 </div>
 <script>
