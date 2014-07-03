@@ -109,6 +109,10 @@ if(isset($edit)&&$edit){
 	<div class="wmd-panel">
 		<div id="wmd-button-bar"></div>
 		<textarea name="comment" class="wmd-input" id="wmd-input"><?=(isset($edit)&&$edit)?$comment['comment']:"" ?></textarea>
+		<script>
+			var el = document.getElementById('wmd-input');
+			tabIndent.render(el);
+		</script>
 	</div>
 	<script type="text/javascript">
 		(function () {

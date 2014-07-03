@@ -4,8 +4,12 @@
 <meta charset='utf-8'>
 <link rel='stylesheet' type='text/css' href='<?= base_url()?>css/progress.css' />
 <script type='text/javascript' src='<?= base_url()?>js/jquery-1.8.0.min.js'></script>
+<script type='text/javascript' src='<?= base_url()?>js/jquery.autosize.min.js'></script>
+
+
 <link rel='stylesheet' type='text/css' href='<?= base_url()?>jwysiwyg/jquery.wysiwyg.css' />
 <script type='text/javascript' src='<?= base_url()?>jwysiwyg/jquery.wysiwyg.js'></script>
+<script type='text/javascript' src='<?= base_url()?>js/tabindent.js'></script>
 
 <link rel='stylesheet' type='text/css' href='<?= base_url()?>pagedown/demo.css' />
 <script type='text/javascript' src='<?= base_url()?>pagedown/Markdown.Converter.js'></script>
@@ -20,10 +24,10 @@
 <script>
 $(document).ready(function() {
 	$('#wmd-input').keyup(function() {
-		console.log('wmd-input keyup');
-//		hljs.highlightBlock($("#wmd-preview pre code"));
+		//console.log('wmd-input keyup');
 		$('#wmd-preview pre code').each(function(i, e) {hljs.highlightBlock(e)});
 	})	
+	$("textarea").autosize();
 });
 </script>
 
