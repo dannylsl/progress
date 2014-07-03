@@ -7,8 +7,15 @@
   padding: 0.5em;
 */
   display: block; 
-  background: #000; color: #f8f8f8;
+  background: #000; 
+  color: #f8f8f8;
 }
+pre {
+  padding: 10px;
+  background: #000; 
+  margin-right: 10px;
+}
+
 
 .hljs-shebang,
 .hljs-comment,
@@ -42,6 +49,7 @@
 .hljs-date,
 .coffeescript .hljs-attribute {
   color: #A8FF60;
+  font-weight: bold;
 }
 
 .hljs-subst {
@@ -52,29 +60,42 @@
   color: #E9C062;
 }
 
-.hljs-title,
 .hljs-sub .hljs-identifier,
 .hljs-pi,
 .hljs-decorator,
 .tex .hljs-special,
-.haskell .hljs-type,
 .hljs-constant,
 .smalltalk .hljs-class,
 .hljs-javadoctag,
 .hljs-yardoctag,
 .hljs-phpdoc,
 .nginx .hljs-built_in {
-  color: #FFFFB6;
+/*  color: #FFFFB6;  */
+	color: red;
+}
+
+.hljs-title{
+  color: yellow;
+  font-weight:bold;
+}
+
+.haskell .hljs-type{
+	background:#fff;
 }
 
 .hljs-symbol,
 .ruby .hljs-symbol .hljs-string,
 .hljs-number,
 .hljs-variable,
-.vbscript,
-.hljs-literal {
+.vbscript {
   color: #C6C5FE;
 }
+.hljs-literal {
+  color: #C6C5FE;
+  font-weight:bold;
+  padding-left: 3px;
+  padding-right: 3px;
+} 
 
 .css .hljs-tag {
   color: #96CBFE;
