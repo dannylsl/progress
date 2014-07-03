@@ -16,6 +16,10 @@ pre {
   margin-right: 10px;
 }
 
+.hljs-preprocessor {
+  color:red;
+  font-weight:bold;
+}
 
 .hljs-shebang,
 .hljs-comment,
@@ -23,6 +27,7 @@ pre {
 .hljs-javadoc {
   color: #7c7c7c;
 }
+
 
 .hljs-keyword,
 .hljs-tag,
