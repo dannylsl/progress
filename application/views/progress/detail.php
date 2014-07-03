@@ -71,7 +71,13 @@ function delete_comment(eId,cId) {
         <div class='comment-header-right'><?=$c['date']?></div>
     </div>
     <div class='comment-body'>
-        <?=$c['comment'];?>
+		<div id="comment-md-<?=$c['id']?>"><?=$c['comment'];?></div>
+		<script>
+			var converter = new Markdown.Converter();
+			var content = $("#comment-md-<?=$c['id']?>").html();
+			var html = converter.makeHtml(content);
+			$("#comment-md-<?=$c['id']?>").html(html);
+		</script>
     </div>
     <div class='comment-opt'>
         <input type='button' class='comment-opt-btn' value='Edit'  onclick="edit_comment(<?=$event['id'].','.$c['id']?>)"/>
@@ -94,7 +100,7 @@ if(isset($edit)&&$edit){
     echo "<input type='hidden' value='{$event['title']}' name='e_title' />";
 ?>
     <input type='hidden' value='<?=$event['id']?>' name='eId'/>
-    <textarea name='comment' id='jwysiwyg' class='comment-textarea'><?=(isset($edit)&&$edit)?$comment['comment']:"" ?></textarea>
+    <textarea name='comment2' id='jwysiwyg' class='comment-textarea'><?=(isset($edit)&&$edit)?$comment['comment']:"" ?></textarea>
     <div class="sp20"></div>
     <div align='right'>
     <input type='submit' class='input-button' value='ADD COMMENT'></div>
@@ -102,7 +108,7 @@ if(isset($edit)&&$edit){
 	<div class="wmd-panel wmd-preview" id="wmd-preview"></div>
 	<div class="wmd-panel">
 		<div id="wmd-button-bar"></div>
-		<textarea class="wmd-input" id="wmd-input"></textarea>
+		<textarea name="comment" class="wmd-input" id="wmd-input"><?=(isset($edit)&&$edit)?$comment['comment']:"" ?></textarea>
 	</div>
 	<script type="text/javascript">
 		(function () {
