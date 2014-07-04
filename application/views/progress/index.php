@@ -56,6 +56,39 @@ function remove_add_dialog() {
       <div class='calender-title'>Calender</div>
       <div class='calender-content'>
         <!-- TO DO CALENDER CONTETN-->
+		<table id="calendar_panel" class="table_calendar_panel">
+			<tr>
+				<td>&lt;</td>
+				<td colspan="5">2014</td>
+				<td>&gt;</td>
+			</tr>
+		</table>
+		<table class="table_calendar">
+		<thead>
+			<tr>
+				<th>S</th>
+				<th>M</th>
+				<th>T</th>
+				<th>W</th>
+				<th>T</th>
+				<th>F</th>
+				<th>S</th>
+			</tr>		
+		</thead>
+		<tbody>
+		</tbody>
+		</table>
+		<script>
+		function calendar() {
+			var today = new Date();
+			var year  = today.getFullYear();
+			var month = today.getMonth()+1;
+
+			var startDay = new Date(year, month - 1,1).getDay();
+
+			var nDays = new Date(year, month, 0).getDate();
+		}
+		</script>
       </div>
     </div> <!-- calender content -->
 
