@@ -75,7 +75,7 @@ function remove_add_dialog() {
 				<th>S</th>
 			</tr>		
 		</thead>
-		<tbody>
+		<tbody id="calendar_body">
 		</tbody>
 		</table>
 		<script>
@@ -85,9 +85,39 @@ function remove_add_dialog() {
 			var month = today.getMonth()+1;
 
 			var startDay = new Date(year, month - 1,1).getDay();
+			console.log("Start Day="+startDay);
 
 			var nDays = new Date(year, month, 0).getDate();
+
+			var column_count = 0;		
+			var day_count = 0;	
+			var calendar_table = "";
+			for(day_count = 0; day_count < startDay; day_count++ ) {
+				if(day_count == 0) {
+					calendar_table = "<tr>";
+				}
+				calendar_table += "<td></td>";	
+				column_count ++;
+			}
+			for (var nDay_id = 0; nDay_id < nDays; nDay_id++) {
+				if(column_count == 7) {
+					calendar_table += "</tr><tr>";	
+					column_count = 0;
+				}
+				calendar_table += "<td>"+(nDay_id+1)+"</td>";	
+				column_count++;
+			}
+			for(;column_count <= 7; column_count++){
+				if(column_count == 7) {
+					console.log(column_count);
+					calendar_table += "</tr>";	
+				}else{
+					calendar_table += "<td></td>";	
+				}
+			}
+			document.getElementById('calendar_body').innerHTML=calendar_table;	
 		}
+		calendar();
 		</script>
       </div>
     </div> <!-- calender content -->
