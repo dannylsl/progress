@@ -208,6 +208,36 @@ class Progress_model extends CI_Model {
         }
     }
 
+	public function calendar_plus($uId) {
+		$date = date("Y-m-d",time());
+		$query_time = date("Y-m-d H:i:s", time());
+
+		$query = $this->db->get_where('prog_calendar',array('userId' => $uId, 'date'=> $date));
+        $calendar_log = $query->row_array();
+/*
+ */
+		if(empty($calendar_log)) {
+			$data = array('userId' => $uId, 'date' => $date, 'query_time' => $query_time, 'count' => 1);
+			$this->db->insert('prog_calendar', $data);
+		}else {
+			$this->db->set('count','count + 1', False);		
+			$this->db->set('query_time', $query_time);
+			$this->db->where(array('userId' => $uId, 'date' => $date));
+			$this->db->update('prog_calendar');
+		}
+	}
+
+	public function calendar_minus($uId) {
+		return;
+	}
+
+	public function get_calendar_log_lasted_month($uId) {
+        $this->db->order_by('datetime', 'DESC');
+        $this->db->limit(31);
+        $query = $this->db->get_where('prog_calendar', array('userId'=>$uId));
+        return $query->result_array();
+			
+	}
 
     public function history_add($uId, $uname, $obj_type, $obj_name, $action_type, $action, $url, $rId) {
 
@@ -219,6 +249,7 @@ class Progress_model extends CI_Model {
         if($this->db->affected_rows() <= 0) {
             return 0; // failed
         }else {
+			$this->calendar_plus($uId);
             return 1; // success
         }
     }
@@ -227,7 +258,6 @@ class Progress_model extends CI_Model {
         $this->db->order_by('datetime', 'DESC');
         $query = $this->db->get_where('prog_history', array('userId'=>$uId));
         return $query->result_array();
-
     }
 
     /*************  REPORT RELATED  *******************/
@@ -236,7 +266,6 @@ class Progress_model extends CI_Model {
         $this->db->limit(1);
         $query = $this->db->get_where('prog_events');
         $event = $query->row_array();
-        //print_r($event);
         $start = array();
         $start['year'] = intval(date('Y',strtotime($event['start_date'])));
         $start['week'] = intval(date('W',strtotime($event['start_date'])));

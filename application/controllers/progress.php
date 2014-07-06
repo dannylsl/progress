@@ -262,7 +262,8 @@ class Progress extends CI_Controller {
             $action = "Edit Comment to Event";
 
             $this->progress_model->history_add($uId, $uname, $obj_type, $obj_name, $action_type, $action, $url, $cId);
-
+			echo $this->db->last_query();
+			
             header("Location:".base_url()."index.php/progress/detail/".$eId);
         };
     }
