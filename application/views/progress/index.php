@@ -104,7 +104,11 @@ function remove_add_dialog() {
 					calendar_table += "</tr><tr>";	
 					column_count = 0;
 				}
-				calendar_table += "<td>"+(nDay_id+1)+"</td>";	
+				if ((nDay_id+1) == today.getDate()) {
+					calendar_table += "<td><div style='color:red'>"+(nDay_id+1)+"</div></td>";	
+				}else {
+					calendar_table += "<td><div>"+(nDay_id+1)+"</div></td>";	
+				}
 				column_count++;
 			}
 			for(;column_count <= 7; column_count++){
