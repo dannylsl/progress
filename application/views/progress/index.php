@@ -1,3 +1,5 @@
+
+<script type='text/javascript' src='<?= base_url()?>js/calendar.js'></script>
 <script type='text/javascript'>
 function show_add_dialog() {
 <?php
@@ -23,6 +25,7 @@ function remove_add_dialog() {
     });
 }
 </script>
+
 
 <div class='container'>
   <div class='left'>
@@ -52,19 +55,18 @@ function remove_add_dialog() {
 
 
   <div class='right'>
-    <div class='calender'>
-      <div class='calender-title'>Calender</div>
-      <div class='calender-content'>
-        <!-- TO DO CALENDER CONTETN-->
-		<table id="calendar_panel" class="table_calendar_panel">
-			<tr>
-				<td>&lt;</td>
-				<td colspan="5">2014</td>
-				<td>&gt;</td>
-			</tr>
-		</table>
+    <div class='calendar'>
+      <div class='calendar-title'>Calendar</div>
+      <div class='calendar-content'>
+        <!-- TO DO CALENDAR CONTETN-->
+		<div style="display:none" id="logs"><?=json_encode($calendar);?></div>
 		<table class="table_calendar">
 		<thead>
+			<tr>
+				<td>&lt;</td>
+				<td colspan="5"><div id="cur_date"></div></td>
+				<td>&gt;</td>
+			</tr>
 			<tr>
 				<th>S</th>
 				<th>M</th>
@@ -79,52 +81,11 @@ function remove_add_dialog() {
 		</tbody>
 		</table>
 		<script>
-		function calendar() {
-			var today = new Date();
-			var year  = today.getFullYear();
-			var month = today.getMonth()+1;
-
-			var startDay = new Date(year, month - 1,1).getDay();
-			console.log("Start Day="+startDay);
-
-			var nDays = new Date(year, month, 0).getDate();
-
-			var column_count = 0;		
-			var day_count = 0;	
-			var calendar_table = "";
-			for(day_count = 0; day_count < startDay; day_count++ ) {
-				if(day_count == 0) {
-					calendar_table = "<tr>";
-				}
-				calendar_table += "<td></td>";	
-				column_count ++;
-			}
-			for (var nDay_id = 0; nDay_id < nDays; nDay_id++) {
-				if(column_count == 7) {
-					calendar_table += "</tr><tr>";	
-					column_count = 0;
-				}
-				if ((nDay_id+1) == today.getDate()) {
-					calendar_table += "<td><div style='color:red'>"+(nDay_id+1)+"</div></td>";	
-				}else {
-					calendar_table += "<td><div>"+(nDay_id+1)+"</div></td>";	
-				}
-				column_count++;
-			}
-			for(;column_count <= 7; column_count++){
-				if(column_count == 7) {
-					console.log(column_count);
-					calendar_table += "</tr>";	
-				}else{
-					calendar_table += "<td></td>";	
-				}
-			}
-			document.getElementById('calendar_body').innerHTML=calendar_table;	
-		}
-		calendar();
+			var logs = $.parseJSON($("#logs").html())
+			calendar(logs);
 		</script>
       </div>
-    </div> <!-- calender content -->
+    </div> <!-- calendar content -->
 
     <div class='furture'>
       <div class='furture-title'>Furture</div>

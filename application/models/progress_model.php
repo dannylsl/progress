@@ -209,7 +209,7 @@ class Progress_model extends CI_Model {
     }
 
 	public function calendar_plus($uId) {
-		$date = date("Y-m-d",time());
+		$date = date("Y-n-j",time());
 		$query_time = date("Y-m-d H:i:s", time());
 
 		$query = $this->db->get_where('prog_calendar',array('userId' => $uId, 'date'=> $date));
@@ -232,11 +232,15 @@ class Progress_model extends CI_Model {
 	}
 
 	public function get_calendar_log_lasted_month($uId) {
-        $this->db->order_by('datetime', 'DESC');
+        $this->db->order_by('query_time', 'DESC');
         $this->db->limit(31);
         $query = $this->db->get_where('prog_calendar', array('userId'=>$uId));
-        return $query->result_array();
-			
+        $month_logs = $query->result_array();
+		$res = array();
+		foreach( $month_logs as $month_log) {
+			$res[$month_log['date']] = $month_log['count'];
+		}
+		return $res;
 	}
 
     public function history_add($uId, $uname, $obj_type, $obj_name, $action_type, $action, $url, $rId) {
