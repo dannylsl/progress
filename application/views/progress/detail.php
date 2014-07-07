@@ -100,10 +100,10 @@ if(isset($edit)&&$edit){
     echo "<input type='hidden' value='{$event['title']}' name='e_title' />";
 ?>
     <input type='hidden' value='<?=$event['id']?>' name='eId'/>
+	<!--
     <textarea name='comment2' id='jwysiwyg' class='comment-textarea'><?=(isset($edit)&&$edit)?$comment['comment']:"" ?></textarea>
     <div class="sp20"></div>
-    <div align='right'>
-    <input type='submit' class='input-button' value='ADD COMMENT'></div>
+	-->
 
 	<div class="wmd-panel wmd-preview" id="wmd-preview"></div>
 	<div class="wmd-panel">
@@ -114,6 +114,11 @@ if(isset($edit)&&$edit){
 			tabIndent.render(el);
 		</script>
 	</div>
+
+    <div align='right'>
+		<input type='submit' class='input-button' value='ADD COMMENT'>
+	</div>
+
 	<script type="text/javascript">
 		(function () {
 			var converter1 = Markdown.getSanitizingConverter();
