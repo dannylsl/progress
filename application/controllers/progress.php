@@ -23,7 +23,7 @@ class Progress extends CI_Controller {
 
         $data['events']		= $this->progress_model->get_events($uId);
 		$data['calendar']	= $this->progress_model->get_calendar_log_lasted_month($uId);
-		$data['recents']		= $this->progress_model->get_recent_events($uId, 8) ;
+		$data['recents']	= $this->progress_model->get_recent_events($uId, 8) ;
 
         $this->load->helper('url');
         $this->load->helper('form');
@@ -39,8 +39,10 @@ class Progress extends CI_Controller {
         $uId = $this->session->userdata('uId');
         $data['statistic'] = $this->progress_model->get_statistic($uId);
 
-        $data['events'] = $this->progress_model->get_events_done($uId);
-        $data['done'] = True;
+        $data['events']		= $this->progress_model->get_events_done($uId);
+		$data['calendar']	= $this->progress_model->get_calendar_log_lasted_month($uId);
+		$data['recents']	= $this->progress_model->get_recent_events($uId, 8) ;
+        $data['done']		= True;
 
         $this->load->helper('url');
         $this->load->helper('form');

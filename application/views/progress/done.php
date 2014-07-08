@@ -1,3 +1,5 @@
+<script type='text/javascript' src='<?= base_url()?>js/calendar.js'></script>
+
 <script type='text/javascript'>
 function show_add_dialog() {
 <?php
@@ -74,18 +76,43 @@ function remove_add_dialog() {
       <div class='calendar-title'>Calendar</div>
       <div class='calendar-content'>
         <!-- TO DO CALENDAR CONTETN-->
+		<div style="display:none" id="logs"><?=json_encode($calendar);?></div>
+		<table class="table_calendar">
+		<thead>
+			<tr>
+				<td>&lt;</td>
+				<td colspan="5"><div id="cur_date"></div></td>
+				<td>&gt;</td>
+			</tr>
+			<tr>
+				<th>S</th>
+				<th>M</th>
+				<th>T</th>
+				<th>W</th>
+				<th>T</th>
+				<th>F</th>
+				<th>S</th>
+			</tr>		
+		</thead>
+		<tbody id="calendar_body">
+		</tbody>
+		</table>
+		<script>
+			var logs = $.parseJSON($("#logs").html())
+			calendar(logs);
+		</script>
+   
       </div>
     </div> <!-- calendar content -->
 
     <div class='recent'>
       <div class='recent-title'>Recent Edit</div>
       <ul class='recent-list'>
-        <li>Hello World</li>
-        <li>Hello WorldHello WorldHello WorldHello WorldHello World</li>
-        <li>Hello World</li>
-        <li>Hello World</li>
-        <li>Hello World</li>
-        <li>Hello World</li>
+		<?php
+		foreach($recents as $re) {
+			echo "<li><a href='".base_url()."index.php/progress/detail/{$re['eId']}'>{$re['e_title']}</a></li>";
+		}
+		?>
       </ul>
     </div> <!-- TODO IN THE FURTURE -->
   </div>
