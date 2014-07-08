@@ -187,13 +187,6 @@ class Progress_model extends CI_Model {
 
         $this->db->insert('prog_settings', $data);
         return $this->db->insert_id('id');
-/*
-        if($this->db->affected_rows() <= 0) {
-            return 0; // failed
-        }else {
-            return 1; // success
-        }
-*/
     }
 
 
@@ -241,6 +234,15 @@ class Progress_model extends CI_Model {
 			$res[$month_log['date']] = $month_log['count'];
 		}
 		return $res;
+	}
+
+	public function get_recent_events($uId, $count) {
+        $this->db->order_by('date', 'DESC');
+		$this->db->select("distinct(`e_title`), `eId`");
+		$this->db->limit($count);
+		$query = $this->db->get_where('prog_comments');	
+		return $query->result_array();
+		
 	}
 
     public function history_add($uId, $uname, $obj_type, $obj_name, $action_type, $action, $url, $rId) {

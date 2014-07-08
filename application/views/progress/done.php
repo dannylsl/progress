@@ -70,16 +70,16 @@ function remove_add_dialog() {
 
 
   <div class='right'>
-    <div class='calender'>
-      <div class='calender-title'>Calender</div>
-      <div class='calender-content'>
-        <!-- TO DO CALENDER CONTETN-->
+    <div class='calendar'>
+      <div class='calendar-title'>Calendar</div>
+      <div class='calendar-content'>
+        <!-- TO DO CALENDAR CONTETN-->
       </div>
-    </div> <!-- calender content -->
+    </div> <!-- calendar content -->
 
-    <div class='furture'>
-      <div class='furture-title'>Furture</div>
-      <ul class='furture-list'>
+    <div class='recent'>
+      <div class='recent-title'>Recent Edit</div>
+      <ul class='recent-list'>
         <li>Hello World</li>
         <li>Hello WorldHello WorldHello WorldHello WorldHello World</li>
         <li>Hello World</li>

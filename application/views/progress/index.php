@@ -87,15 +87,14 @@ function remove_add_dialog() {
       </div>
     </div> <!-- calendar content -->
 
-    <div class='furture'>
-      <div class='furture-title'>Furture</div>
-      <ul class='furture-list'>
-        <li>Hello World</li>
-        <li>Hello WorldHello WorldHello WorldHello WorldHello World</li>
-        <li>Hello World</li>
-        <li>Hello World</li>
-        <li>Hello World</li>
-        <li>Hello World</li>
+    <div class='recent'>
+      <div class='recent-title'>Recent Edit</div>
+      <ul class='recent-list'>
+		<?php
+		foreach($recents as $re) {
+			echo "<li><a href='".base_url()."index.php/progress/detail/{$re['eId']}'>{$re['e_title']}</a></li>";
+		}
+		?>
       </ul>
     </div> <!-- TODO IN THE FURTURE -->
   </div>
