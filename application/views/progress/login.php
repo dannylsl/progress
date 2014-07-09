@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <link rel='stylesheet' type='text/css' href='<?= base_url()?>css/progress.css' />
 <script type='text/javascript' src='<?= base_url()?>js/jquery-1.8.0.min.js'></script>
 <title>PROGRESS LOGIN</title>
