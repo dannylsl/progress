@@ -3,7 +3,7 @@
 <script type='text/javascript'>
 function show_add_dialog() {
 <?php
-$str = file_get_contents(base_url().'index.php/progress/addtodo');
+$str = file_get_contents(base_url().'index.php/progress/addtodo/'.$uId);
 $str = str_replace(PHP_EOL, '', $str);
 $str = str_replace("\"", "'", $str);
 ?>

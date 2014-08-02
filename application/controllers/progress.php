@@ -19,8 +19,9 @@ class Progress extends CI_Controller {
         $data['username'] = $this->islogin();
         $this->load->library('session');
         $uId = $this->session->userdata('uId');
+		$data['uId'] = $uId;
         $data['statistic'] = $this->progress_model->get_statistic($uId);
-
+		
         $data['events']		= $this->progress_model->get_events($uId);
 		$data['calendar']	= $this->progress_model->get_calendar_log_lasted_month($uId);
 		$data['recents']	= $this->progress_model->get_recent_events($uId, 8) ;
@@ -71,12 +72,15 @@ class Progress extends CI_Controller {
     }
 
 
-    public function addtodo($eId = 0) {
+    public function addtodo($uId, $eId = 0) {
+		// Fail to load session->userdata('uId')
+
+        //$this->load->library('session');
+        //echo "session".$uId = $this->session->userdata('uId');
+
         $this->load->helper('url');
         $this->load->helper('form');
-        $this->load->library('session');
-        $uId = $this->session->userdata('uId');
-
+	
         $data['categorys'] = $this->progress_model->get_categorys($uId);
 
         if(isset($eId) && $eId != 0) {
@@ -403,7 +407,7 @@ class Progress extends CI_Controller {
         }else{
             $this->progress_model->update_last_login($user['uId']);
             $this->session->set_userdata($user);
-            $this->session->userdata('uId');
+            //$this->session->userdata('uId');
             header("Location:".base_url()."index.php");
         }
     }
