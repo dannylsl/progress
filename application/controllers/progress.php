@@ -123,8 +123,8 @@ class Progress extends CI_Controller {
             echo "FAIL TO ADD EVENT";
         }else {
             $this->load->library('session');
-            $uId = $this->session->userdata('uId');
-            $uname =  $this->session->userdata('username');
+            echo "uId =".$uId = $this->session->userdata('uId');
+            echo "uname =".$uname =  $this->session->userdata('username');
             $obj_type = "Event";  // Setting | Event | Comment
             $obj_name = $title;
             $action_type = "EDIT"; // ADD | EDIT | DEL
@@ -182,6 +182,7 @@ class Progress extends CI_Controller {
         $data['username'] = $this->islogin();
         $this->load->library('session');
         $uId = $this->session->userdata('uId');
+		$data['uId'] = $uId;
         $data['statistic'] = $this->progress_model->get_statistic($uId);
 
         $data['event'] = $this->progress_model->get_event($eId);

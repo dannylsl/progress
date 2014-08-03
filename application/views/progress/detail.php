@@ -1,7 +1,7 @@
 <script type='text/javascript'>
 function show_add_dialog() {
 <?php
-$str = file_get_contents(base_url().'index.php/progress/addtodo/'.$event['id']);
+$str = file_get_contents(base_url().'index.php/progress/addtodo/'.$uId.'/'.$event['id']);
 $str = str_replace(PHP_EOL, '', $str);
 $str = str_replace("\"", "'", $str);
 ?>
