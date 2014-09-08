@@ -23,11 +23,11 @@
 <script>hljs.initHighlightingOnLoad();</script>
 <script>
 $(document).ready(function() {
-	$('#wmd-input').keyup(function() {
-		//console.log('wmd-input keyup');
-		$('#wmd-preview pre code').each(function(i, e) {hljs.highlightBlock(e)});
-	})	
-	$("textarea").autosize();
+    $('#wmd-input').keyup(function() {
+        //console.log('wmd-input keyup');
+        $('#wmd-preview pre code').each(function(i, e) {hljs.highlightBlock(e)});
+    });
+    $("textarea").autosize();
 });
 </script>
 

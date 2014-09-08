@@ -71,13 +71,13 @@ function delete_comment(eId,cId) {
         <div class='comment-header-right'><?=$c['date']?></div>
     </div>
     <div class='comment-body'>
-		<div id="comment-md-<?=$c['id']?>"><?=$c['comment'];?></div>
-		<script>
-			var converter = new Markdown.Converter();
-			var content = $("#comment-md-<?=$c['id']?>").html();
-			var html = converter.makeHtml(content);
-			$("#comment-md-<?=$c['id']?>").html(html);
-		</script>
+        <div id="comment-md-<?=$c['id']?>"><?=$c['comment'];?></div>
+        <script>
+            var converter = new Markdown.Converter();
+            var content = $("#comment-md-<?=$c['id']?>").html();
+            var html = converter.makeHtml(content);
+            $("#comment-md-<?=$c['id']?>").html(html);
+        </script>
     </div>
     <div class='comment-opt'>
         <input type='button' class='comment-opt-btn' value='Edit'  onclick="edit_comment(<?=$event['id'].','.$c['id']?>)"/>
@@ -100,54 +100,94 @@ if(isset($edit)&&$edit){
     echo "<input type='hidden' value='{$event['title']}' name='e_title' />";
 ?>
     <input type='hidden' value='<?=$event['id']?>' name='eId'/>
-	<!--
+    <!--
     <textarea name='comment2' id='jwysiwyg' class='comment-textarea'><?=(isset($edit)&&$edit)?$comment['comment']:"" ?></textarea>
     <div class="sp20"></div>
-	-->
+    -->
 
-	<div class="wmd-panel wmd-preview" id="wmd-preview"></div>
-	<div class="wmd-panel">
-		<div id="wmd-button-bar"></div>
-		<textarea name="comment" class="wmd-input" id="wmd-input"><?=(isset($edit)&&$edit)?$comment['comment']:"" ?></textarea>
-		<script>
-			var el = document.getElementById('wmd-input');
-			tabIndent.render(el);
-		</script>
-	</div>
+    <div class="wmd-panel wmd-preview" id="wmd-preview"></div>
+    <div class="wmd-panel">
+        <div id="wmd-button-bar"></div>
+        <textarea name="comment" class="wmd-input" id="wmd-input"><?=(isset($edit)&&$edit)?$comment['comment']:"" ?></textarea>
+        <script>
+            var el = document.getElementById('wmd-input');
+            tabIndent.render(el);
+        </script>
+    </div>
 
-    <div align='right'>
-		<input type='submit' class='input-button' value='ADD COMMENT'>
-	</div>
+    <div style="margin-top: 10px;overflow:auto;">
+        <input type='submit' class='input-button' style="float:right;" value='ADD COMMENT'>
+    </div>
 
-	<script type="text/javascript">
-		(function () {
-			var converter1 = Markdown.getSanitizingConverter();
-			
-			converter1.hooks.chain("preBlockGamut", function (text, rbg) {
-				return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
-					return "<blockquote>" + rbg(inner) + "</blockquote>\n";
-				});
-			});
-			
-			var editor1 = new Markdown.Editor(converter1);
-			
-			editor1.run();
-			
-			
-			var help = function () { alert("Do you need help?"); }
-			var options = {
-				helpButton: { handler: help },
-				strings: { quoteexample: "whatever you're quoting, put it right here" }
-			};
-		})();
-	</script>
+    <script type="text/javascript">
+        (function () {
+            var converter1 = Markdown.getSanitizingConverter();
+            converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+                return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+                    return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+                });
+            });
+
+            var editor1 = new Markdown.Editor(converter1);
+
+            editor1.run();
+            var help = function () { alert("Do you need help?"); }
+            var options = {
+                helpButton: { handler: help },
+                strings: { quoteexample: "whatever you're quoting, put it right here" }
+            };
+        })();
+    </script>
 
 
 </form>
 </div>
-<script>
-$('#jwysiwyg').wysiwyg();
-</script>
+<div id="resoures">
+    <iframe name="hidden_frame" id="hidden_frame" style="display:none;"></iframe>
+    <table id="res_table" width="100%">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>FileName</td>
+                <td>Time</td>
+                <td>Option</td>
+            </tr>
+        </thead>
+        <tbody>
+        <?
+        $rId = 1;
+        foreach($resources as $r) :
+        ?>
+            <tr>
+                <td><?=($rId++)?></td>
+            <td><a href="<?=base_url().'uploads/'.$r['filename']?>"><?=$r['filename']?></a></td>
+                <td><?=$r['datetime']?></td>
+                <td><img src="<?=base_url()?>images/remove.png" 
+                onclick="javascript:location.href='<?=base_url();?>index.php/progress/remove_resource/<?=$r['id']?>/<?=$event['id']?>'"></td>
+            </tr>
+        <? endforeach;?>
+        <tr>
+            <td colspan="4" id="upload_panel">
+                <?php echo form_open_multipart('progress/upload'); ?>
+                <!--
+                <form action="<?=base_url();?>index.php/progress/upload" method="post" accept-charset="utf-8" 
+                target="hidden_frame" enctype="multipart/form-data">
+                -->
+                    <input type="file" name="userfile">
+                    <input type="submit" value="upload">
+                    <input type="hidden" name="eventId" value="<?=$event['id']?>">
+                <?php echo form_close(); ?>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <script>
+    function uploadfile() {
+        //TODO UPLOAD WITH NON-REFRESH
+    }
+    </script>
+</div>
+
 
 <div class='event-state'>
 <script>

@@ -201,49 +201,49 @@ class Progress_model extends CI_Model {
         }
     }
 
-	public function calendar_plus($uId) {
-		$date = date("Y-n-j",time());
-		$query_time = date("Y-m-d H:i:s", time());
+    public function calendar_plus($uId) {
+        $date = date("Y-n-j",time());
+        $query_time = date("Y-m-d H:i:s", time());
 
-		$query = $this->db->get_where('prog_calendar',array('userId' => $uId, 'date'=> $date));
+        $query = $this->db->get_where('prog_calendar',array('userId' => $uId, 'date'=> $date));
         $calendar_log = $query->row_array();
 /*
  */
-		if(empty($calendar_log)) {
-			$data = array('userId' => $uId, 'date' => $date, 'query_time' => $query_time, 'count' => 1);
-			$this->db->insert('prog_calendar', $data);
-		}else {
-			$this->db->set('count','count + 1', False);		
-			$this->db->set('query_time', $query_time);
-			$this->db->where(array('userId' => $uId, 'date' => $date));
-			$this->db->update('prog_calendar');
-		}
-	}
+        if(empty($calendar_log)) {
+            $data = array('userId' => $uId, 'date' => $date, 'query_time' => $query_time, 'count' => 1);
+            $this->db->insert('prog_calendar', $data);
+        }else {
+            $this->db->set('count','count + 1', False);     
+            $this->db->set('query_time', $query_time);
+            $this->db->where(array('userId' => $uId, 'date' => $date));
+            $this->db->update('prog_calendar');
+        }
+    }
 
-	public function calendar_minus($uId) {
-		return;
-	}
+    public function calendar_minus($uId) {
+        return;
+    }
 
-	public function get_calendar_log_lasted_month($uId) {
+    public function get_calendar_log_lasted_month($uId) {
         $this->db->order_by('query_time', 'DESC');
         $this->db->limit(31);
         $query = $this->db->get_where('prog_calendar', array('userId'=>$uId));
         $month_logs = $query->result_array();
-		$res = array();
-		foreach( $month_logs as $month_log) {
-			$res[$month_log['date']] = $month_log['count'];
-		}
-		return $res;
-	}
+        $res = array();
+        foreach( $month_logs as $month_log) {
+            $res[$month_log['date']] = $month_log['count'];
+        }
+        return $res;
+    }
 
-	public function get_recent_events($uId, $count) {
+    public function get_recent_events($uId, $count) {
         $this->db->order_by('date', 'DESC');
-		$this->db->select("distinct(`e_title`), `eId`");
-		$this->db->limit($count);
-		$query = $this->db->get_where('prog_comments');	
-		return $query->result_array();
-		
-	}
+        $this->db->select("distinct(`e_title`), `eId`");
+        $this->db->limit($count);
+        $query = $this->db->get_where('prog_comments'); 
+        return $query->result_array();
+        
+    }
 
     public function history_add($uId, $uname, $obj_type, $obj_name, $action_type, $action, $url, $rId) {
 
@@ -255,7 +255,7 @@ class Progress_model extends CI_Model {
         if($this->db->affected_rows() <= 0) {
             return 0; // failed
         }else {
-			$this->calendar_plus($uId);
+            $this->calendar_plus($uId);
             return 1; // success
         }
     }
@@ -360,4 +360,28 @@ class Progress_model extends CI_Model {
         return $statistic;
     }
 
+
+    /*************  RESOURCES RELATED  *******************/
+    public function add_resource($uId, $username, $eId, $filename, $file_ext ) {
+        $datetime = date('Y-m-d H:i:s',time());
+        $data = array('filename'=>$filename, 'file_ext'=>$file_ext, 'uid'=>$uId, 'uname'=>$username, 'eid'=>$eId, 'datetime'=>$datetime);
+        $this->db->insert('prog_resources', $data);
+        return $this->db->insert_id('id');
+    }
+
+    public function rm_resource($rId) {
+        $this->db->delete('prog_resources', array('id'=>$rId));
+
+        if($this->db->affected_rows() <= 0) {
+            return 0; // failed
+        }else {
+            return 1; // success
+        }
+    }
+
+    public function get_resources($uId, $eId) {
+        $this->db->order_by('datetime', 'ASC');
+        $query = $this->db->get_where('prog_resources', array('uid' => $uId, 'eid' => $eId));
+        return $query->result_array();
+    }
 }

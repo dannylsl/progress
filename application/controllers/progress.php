@@ -19,12 +19,11 @@ class Progress extends CI_Controller {
         $data['username'] = $this->islogin();
         $this->load->library('session');
         $uId = $this->session->userdata('uId');
-		$data['uId'] = $uId;
+        $data['uId'] = $uId;
         $data['statistic'] = $this->progress_model->get_statistic($uId);
-		
-        $data['events']		= $this->progress_model->get_events($uId);
-		$data['calendar']	= $this->progress_model->get_calendar_log_lasted_month($uId);
-		$data['recents']	= $this->progress_model->get_recent_events($uId, 8) ;
+        $data['events']     = $this->progress_model->get_events($uId);
+        $data['calendar']   = $this->progress_model->get_calendar_log_lasted_month($uId);
+        $data['recents']    = $this->progress_model->get_recent_events($uId, 8) ;
 
         $this->load->helper('url');
         $this->load->helper('form');
@@ -33,6 +32,42 @@ class Progress extends CI_Controller {
         $this->load->view('progress/footer',$data);
     }
 
+    public function upload() {
+
+        $this->load->helper('url');
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
+        $uname =  $this->session->userdata('username');
+        $eId = $this->input->post('eventId');
+
+        $config['upload_path'] = "./uploads/";
+        $config['allowed_types'] = '*';
+        $config['max_size']  = 1024 * 20;
+        //print_r($_FILES);
+
+        $this->load->library('upload', $config);
+
+        if( !$this->upload->do_upload()) {
+            $error = array("error" => $this->upload->display_errors());
+            //$this->load->view("upload_form", $error);
+            //print_r($error);
+            echo "UPLOADFAILD";
+        } else {
+            $data = array("upload" => $this->upload->data());
+            print_r($data);
+            $filename = $data['upload']['file_name'];
+            $file_ext = $data['upload']['file_ext'];
+            $this->progress_model->add_resource($uId, $uname, $eId, $filename, $file_ext );
+            //echo "UPLOADSUCCEED";
+            header("Location:".base_url()."index.php/progress/detail/".$eId);
+        }
+    }
+
+    public function remove_resource($rId, $eId) {
+        $this->load->helper('url');
+        $this->progress_model->rm_resource($rId);
+        header("Location:".base_url()."index.php/progress/detail/".$eId);
+    }
 
     public function done() {
         $data['username'] = $this->islogin();
@@ -40,10 +75,10 @@ class Progress extends CI_Controller {
         $uId = $this->session->userdata('uId');
         $data['statistic'] = $this->progress_model->get_statistic($uId);
 
-        $data['events']		= $this->progress_model->get_events_done($uId);
-		$data['calendar']	= $this->progress_model->get_calendar_log_lasted_month($uId);
-		$data['recents']	= $this->progress_model->get_recent_events($uId, 8) ;
-        $data['done']		= True;
+        $data['events']     = $this->progress_model->get_events_done($uId);
+        $data['calendar']   = $this->progress_model->get_calendar_log_lasted_month($uId);
+        $data['recents']    = $this->progress_model->get_recent_events($uId, 8) ;
+        $data['done']       = True;
 
         $this->load->helper('url');
         $this->load->helper('form');
@@ -73,14 +108,14 @@ class Progress extends CI_Controller {
 
 
     public function addtodo($uId, $eId = 0) {
-		// Fail to load session->userdata('uId')
+        // Fail to load session->userdata('uId')
 
         //$this->load->library('session');
         //echo "session".$uId = $this->session->userdata('uId');
 
         $this->load->helper('url');
         $this->load->helper('form');
-	
+    
         $data['categorys'] = $this->progress_model->get_categorys($uId);
 
         if(isset($eId) && $eId != 0) {
@@ -182,11 +217,12 @@ class Progress extends CI_Controller {
         $data['username'] = $this->islogin();
         $this->load->library('session');
         $uId = $this->session->userdata('uId');
-		$data['uId'] = $uId;
+        $data['uId'] = $uId;
         $data['statistic'] = $this->progress_model->get_statistic($uId);
 
         $data['event'] = $this->progress_model->get_event($eId);
         $data['comments'] = $this->progress_model->get_comments($eId);
+        $data['resources'] = $this->progress_model->get_resources($uId, $eId);
 
         $this->load->helper('url');
         $this->load->helper('form');
@@ -200,8 +236,8 @@ class Progress extends CI_Controller {
         $this->load->library('session');
         $uId = $this->session->userdata('uId');
         $uname =  $this->session->userdata('username');
-
         $eId = $this->input->post('eId');
+
         $e_title = $this->input->post('e_title');
         $comment = $this->input->post('comment');
         $u1id = $uId;
@@ -272,8 +308,8 @@ class Progress extends CI_Controller {
             $action = "Edit Comment to Event";
 
             $this->progress_model->history_add($uId, $uname, $obj_type, $obj_name, $action_type, $action, $url, $cId);
-			echo $this->db->last_query();
-			
+            echo $this->db->last_query();
+            
             header("Location:".base_url()."index.php/progress/detail/".$eId);
         };
     }
@@ -319,8 +355,8 @@ class Progress extends CI_Controller {
 
     public function add_category() {
         $this->load->helper('url');
-		$this->load->library('session');
-		$uId = $this->session->userdata('uId');
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
         $item_value = $this->input->post('item_name');
         $result = $this->progress_model->add_category($uId,$item_value);
         if( 0 == $result) {
