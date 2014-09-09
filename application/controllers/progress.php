@@ -57,8 +57,33 @@ class Progress extends CI_Controller {
             print_r($data);
             $filename = $data['upload']['file_name'];
             $file_ext = $data['upload']['file_ext'];
-            $this->progress_model->add_resource($uId, $uname, $eId, $filename, $file_ext );
+            $url = "";
+            $this->progress_model->add_resource($uId, $uname, $eId, $filename, $file_ext, $url);
             //echo "UPLOADSUCCEED";
+            header("Location:".base_url()."index.php/progress/detail/".$eId);
+        }
+    }
+
+    public function sae_upload() {
+        $this->load->helper('url');
+        $this->load->library('session');
+        $uId = $this->session->userdata('uId');
+        $uname =  $this->session->userdata('username');
+        $eId = $this->input->post('eventId');
+
+        $storage = new SaeStorage();
+        $domain = 'attachment';
+        $destFilenName = $_FILES['userfile']['name'];
+        $srcFilenName = $_FILES['userfile']['tmp_name'];
+        $type = $_FILES['userfile']['type'];
+
+        //$attr = array('encoding' => 'gzip');
+        //$result = $storage->upload($domain, $destFilenName, $srcFilenName, -1, $attr, true);
+        $result = $storage->upload($domain, $destFilenName, $srcFilenName);
+        if($result == false) {
+            echo "upload failed";
+        }else {
+            $this->progress_model->add_resource($uId, $uname, $eId, $destFilenName, $type, $result);
             header("Location:".base_url()."index.php/progress/detail/".$eId);
         }
     }
@@ -274,6 +299,7 @@ class Progress extends CI_Controller {
 
         $data['event'] = $this->progress_model->get_event($eId);
         $data['comments'] = $this->progress_model->get_comments($eId);
+        $data['resources'] = $this->progress_model->get_resources($uId, $eId);
 
         $data['comment'] = $this->progress_model->get_comment($cId);
 //      udo  echo $data['comment']['comment'];

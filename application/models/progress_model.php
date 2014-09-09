@@ -362,9 +362,9 @@ class Progress_model extends CI_Model {
 
 
     /*************  RESOURCES RELATED  *******************/
-    public function add_resource($uId, $username, $eId, $filename, $file_ext ) {
+    public function add_resource($uId, $username, $eId, $filename, $file_ext , $url) {
         $datetime = date('Y-m-d H:i:s',time());
-        $data = array('filename'=>$filename, 'file_ext'=>$file_ext, 'uid'=>$uId, 'uname'=>$username, 'eid'=>$eId, 'datetime'=>$datetime);
+        $data = array('filename'=>$filename, 'file_ext'=>$file_ext, 'uid'=>$uId, 'uname'=>$username, 'eid'=>$eId, 'url'=>$url, 'datetime'=>$datetime);
         $this->db->insert('prog_resources', $data);
         return $this->db->insert_id('id');
     }
