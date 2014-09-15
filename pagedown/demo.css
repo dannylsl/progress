@@ -5,9 +5,9 @@ body
 }
 
 blockquote {
-	border-left: 2px dotted #888;
-	padding-left: 5px;
-	background: #d0f0ff;
+	padding: 3px 0px 3px 15px;
+    border-left: 5px solid #999;
+	background: #fff;
 }
 
 .wmd-panel

@@ -71,10 +71,10 @@ function delete_comment(eId,cId) {
         <div class='comment-header-right'><?=$c['date']?></div>
     </div>
     <div class='comment-body'>
-        <div id="comment-md-<?=$c['id']?>"><?=$c['comment'];?></div>
+        <div id="comment-md-<?=$c['id']?>"><?echo htmlspecialchars_decode($c['comment']);?></div>
         <script>
             var converter = new Markdown.Converter();
-            var content = $("#comment-md-<?=$c['id']?>").html();
+            var content = $("#comment-md-<?=$c['id']?>").text();
             var html = converter.makeHtml(content);
             $("#comment-md-<?=$c['id']?>").html(html);
         </script>
@@ -124,6 +124,7 @@ if(isset($edit)&&$edit){
             var converter1 = Markdown.getSanitizingConverter();
             converter1.hooks.chain("preBlockGamut", function (text, rbg) {
                 return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+                    console.log("<blockquote>" + rbg(inner) + "</blockquote>\n");
                     return "<blockquote>" + rbg(inner) + "</blockquote>\n";
                 });
             });
