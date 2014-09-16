@@ -4,7 +4,6 @@
     font-family:arial, 微软雅黑, sans-serif;
 }
 html, body{width:100%;height: 100%;}
-
 a {
     text-decoration: none;
     color:#000;
@@ -502,9 +501,10 @@ h3{
 
 .comment-header {
     background-color: #999;
-    padding: 5px 20px 5px 10px;
+    padding: 5px 10px 5px 10px;
     color: #fff;
     overflow: auto;
+    font-size: 18px;
 }
 .comment-header-left {
     width: 70%;
@@ -515,10 +515,21 @@ h3{
     float: right;
     text-align: right;
 }
+.comment-header-right-icon {
+    vertical-align: top;
+    cursor:pointer;
+}
 
 .comment-body {
     padding: 10px 20px 10px 10px;
 }
+
+.comment-body img {
+    border: 5px solid #999;
+    max-width: 620px;
+    margin: 10px;
+}
+
 .comment-body a{
     color:rgb(241, 127, 50);
     text-decoration:none;
@@ -561,6 +572,7 @@ h3{
 }
 
 .comment-opt {
+    display:none;
     margin-bottom: 5px;
     text-align: right;
 }

@@ -52,6 +52,10 @@ function remove_add_dialog() {
 <div class="sp20"></div>
 
 <script>
+function toggle_comment_opt(id) {
+    $("#comment-opt-"+id).toggle(300);
+}
+
 function edit_comment(eId, cId) {
     location.href="<?=base_url()?>index.php/progress/edit_comment/"+eId+'/'+cId;
 }
@@ -61,14 +65,17 @@ function delete_comment(eId,cId) {
         location.href="<?=base_url()?>index.php/progress/delete_comment/"+eId+'/'+cId;
     }
 }
-
 </script>
 
 <? foreach($comments as $c) : ?>
 <div class='comment' id="comment-<?=$c['id']?>">
     <div class='comment-header'>
         <div class='comment-header-left'><?=$c['u1name']?></div>
-        <div class='comment-header-right'><?=$c['date']?></div>
+        <div class='comment-header-right'>
+            <?=$c['date']?>
+            <img class="comment-header-right-icon" src="<?=base_url()?>images/cogwheel18.png" 
+            onClick="toggle_comment_opt(<?=$c['id']?>)"/>
+        </div>
     </div>
     <div class='comment-body'>
         <div id="comment-md-<?=$c['id']?>"><?echo htmlspecialchars_decode($c['comment']);?></div>
@@ -79,7 +86,7 @@ function delete_comment(eId,cId) {
             $("#comment-md-<?=$c['id']?>").html(html);
         </script>
     </div>
-    <div class='comment-opt'>
+    <div class='comment-opt' id="comment-opt-<?=$c['id']?>">
         <input type='button' class='comment-opt-btn' value='Edit'  onclick="edit_comment(<?=$event['id'].','.$c['id']?>)"/>
         <input type='button' class='comment-opt-btn comment-opt-btn-del' value='Delete' onclick="delete_comment(<?=$event['id'].','.$c['id']?>)"/>
     </div>
