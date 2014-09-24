@@ -295,6 +295,7 @@ class Progress extends CI_Controller {
         $data['username'] = $this->islogin();
         $this->load->library('session');
         $uId = $this->session->userdata('uId');
+        $data['uId'] = $uId;
         $data['statistic'] = $this->progress_model->get_statistic($uId);
 
         $data['event'] = $this->progress_model->get_event($eId);
