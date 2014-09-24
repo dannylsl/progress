@@ -702,14 +702,14 @@ else
             }
             url = encodeProblemUrlChars(url);
             url = escapeCharacters(url, "*_");
-            var result = "<a target='_blank' href=\"" + url + "\"";
+            var result = "<a href=\"" + url + "\"";
 
             if (title != "") {
                 title = attributeEncode(title);
                 title = escapeCharacters(title, "*_");
                 result += " title=\"" + title + "\"";
             }
-
+            result += " target=\"_blank\" ";
             result += ">" + link_text + "</a>";
 
             return result;
@@ -1392,7 +1392,7 @@ else
                 var url = encodeProblemUrlChars(m1);
                 url = escapeCharacters(url, "*_");
                 
-                return "<a href=\"" + url + "\">" + pluginHooks.plainLinkText(m1) + "</a>";
+                return "<a href=\"" + url + "\" target=\"_blank\">" + pluginHooks.plainLinkText(m1) + "</a>";
             };
             text = text.replace(/<((https?|ftp):[^'">\s]+)>/gi, replacer);
 
