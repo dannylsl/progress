@@ -702,7 +702,7 @@ else
             }
             url = encodeProblemUrlChars(url);
             url = escapeCharacters(url, "*_");
-            var result = "<a href=\"" + url + "\"";
+            var result = "<a target='_blank' href=\"" + url + "\"";
 
             if (title != "") {
                 title = attributeEncode(title);
