@@ -240,9 +240,8 @@ class Progress_model extends CI_Model {
         $this->db->order_by('date', 'DESC');
         $this->db->select("distinct(`e_title`), `eId`");
         $this->db->limit($count);
-        $query = $this->db->get_where('prog_comments'); 
+        $query = $this->db->get_where('prog_comments', array('u1id'=>$uId)); 
         return $query->result_array();
-        
     }
 
     public function history_add($uId, $uname, $obj_type, $obj_name, $action_type, $action, $url, $rId) {
@@ -336,6 +335,7 @@ class Progress_model extends CI_Model {
 
     public function get_user($username, $password) {
         $query = $this->db->get_where('prog_users',array('username'=>$username, 'passwd'=>$password)); //status == on-going
+//        echo $this->db->last_query();
         $user = $query->row_array();
         return $user;
     }
